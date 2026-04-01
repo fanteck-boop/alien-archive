@@ -1,0 +1,152 @@
+.bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 64px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.filterGroup {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+.btn:hover {
+  border-color: var(--acid-dim);
+  color: var(--white);
+  background: rgba(184,255,46,0.05);
+}
+
+/* All */
+.type_all.active { background: var(--acid); border-color: var(--acid); color: #050507; }
+/* Movie */
+.type_movie.active { background: var(--red); border-color: var(--red); color: #fff; }
+/* Game */
+.type_game.active { background: var(--amber); border-color: var(--amber); color: #050507; }
+/* Book */
+.type_book.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+/* Comic */
+.type_comic.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+
+/* Favorites */
+.type_fav.active {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #050507;
+}
+
+.favCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.25);
+  border-radius: 20px;
+  font-size: 10px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  margin-left: 4px;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0;
+}
+
+.divider {
+  width: 1px;
+  height: 26px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.select {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 5px 28px 5px 10px;
+  cursor: pointer;
+  outline: none;
+  letter-spacing: 1px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a6070'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.select:hover { border-color: var(--acid-dim); }
+
+.searchWrap { position: relative; }
+
+.searchIcon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.searchInput {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 5px 10px 5px 28px;
+  outline: none;
+  letter-spacing: 1px;
+  width: 180px;
+  transition: border-color 0.2s;
+}
+
+.searchInput:focus { border-color: var(--acid-dim); }
+.searchInput::placeholder { color: var(--text-dim); }
+
+.count {
+  margin-left: auto;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.count span { color: var(--acid); }
+
+@media (max-width: 768px) {
+  .bar { padding: 12px 20px; gap: 10px; }
+  .searchInput { width: 120px; }
+  .count { margin-left: 0; }
+}

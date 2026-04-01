@@ -1,0 +1,40 @@
+.btn {
+  background: rgba(5, 5, 7, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  line-height: 1;
+  z-index: 3;
+}
+
+.btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  transform: scale(1.1);
+}
+
+.btn.active {
+  color: var(--amber);
+  border-color: var(--amber);
+  background: rgba(255, 170, 0, 0.12);
+}
+
+/* Sizes */
+.sm {
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+.lg {
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  border-radius: 2px;
+}
