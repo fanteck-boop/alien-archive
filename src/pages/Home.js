@@ -12,7 +12,7 @@ export default function Home() {
   const [activeType, setActiveType] = useState('all');
   const [activeSort, setActiveSort] = useState('year-asc');
   const [search, setSearch] = useState('');
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
   const [showFavOnly, setShowFavOnly] = useState(false);
 
   const { favorites, toggle: toggleFavorite } = useFavorites();
@@ -20,7 +20,6 @@ export default function Home() {
   const filtered = useMemo(() => {
     let items = [...data];
 
-    // Favorites filter takes priority over type filter
     if (showFavOnly) {
       items = items.filter((d) => favorites.has(d.id));
     } else if (activeType !== 'all') {
@@ -53,6 +52,12 @@ export default function Home() {
     books: data.filter((d) => d.type === 'book').length,
     comics: data.filter((d) => d.type === 'comic').length,
   }), []);
+
+  // Resolve modal item by ID so it's always the latest data
+  const selectedItem = useMemo(
+    () => data.find((d) => d.id === selectedId) ?? null,
+    [selectedId]
+  );
 
   const emptyMessage = showFavOnly
     ? { icon: '★', title: 'No saved entries yet', sub: 'Click the star on any card to save it.' }
@@ -111,7 +116,7 @@ export default function Home() {
               <Card
                 key={item.id}
                 item={item}
-                onClick={setSelectedItem}
+                onClick={(item) => setSelectedId(item.id)}
                 animDelay={(i % 16) * 22}
                 isFavorite={favorites.has(item.id)}
                 onToggleFavorite={toggleFavorite}
@@ -130,7 +135,7 @@ export default function Home() {
       {/* Modal */}
       <Modal
         item={selectedItem}
-        onClose={() => setSelectedItem(null)}
+        onClose={() => setSelectedId(null)}
         isFavorite={selectedItem ? favorites.has(selectedItem.id) : false}
         onToggleFavorite={toggleFavorite}
       />

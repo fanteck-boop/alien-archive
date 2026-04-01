@@ -4,11 +4,13 @@ const IMG_BASE = "https://image.tmdb.org/t/p/w500";
 
 const cache = {};
 
-export const fetchMovie = async (title) => {
-  if (cache[title]) return cache[title];
+export const fetchMovie = async (title, year) => {
+  const cacheKey = `${title}-${year}`;
+  if (cache[cacheKey]) return cache[cacheKey];
   try {
+    const yearParam = year ? `&primary_release_year=${year}` : '';
     const res = await fetch(
-      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(title)}`
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(title)}${yearParam}`
     );
     const data = await res.json();
     const result = data.results?.[0] || null;
@@ -17,7 +19,7 @@ export const fetchMovie = async (title) => {
         ? `${IMG_BASE}${result.poster_path}`
         : null;
     }
-    cache[title] = result;
+    cache[cacheKey] = result;
     return result;
   } catch (err) {
     console.error("TMDB fetch error:", err);

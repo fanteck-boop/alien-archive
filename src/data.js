@@ -3,7 +3,7 @@ export const data = [
   {
     id: 1, type: 'movie', title: 'Alien', year: 1979, rating: 8.4,
     director: 'Ridley Scott',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/c/c3/Alien_film_poster.jpg',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/vfrQk5IPloGg1v9Rzbh2Eg3VGyM.jpg',
     desc: 'The commercial starship Nostromo receives a distress signal from a remote moon. What the crew discovers — and what follows them back — will become the most iconic horror in cinematic history.',
     detailedDesc: "Sigourney Weaver's Ellen Ripley was cinema's first true female action hero. The Xenomorph — designed by Swiss surrealist H.R. Giger — remains one of the most terrifying creature designs ever committed to screen. The film's slow build, industrial aesthetic, and pitch-black ending set a standard for science-fiction horror that has never been surpassed.",
     pros: ["Masterpiece of slow-burn atmospheric tension", "H.R. Giger's creature design is timeless and viscerally disturbing", "Sigourney Weaver delivers a career-defining performance", "Every production detail — sound, lighting, set design — is meticulous"],
@@ -13,7 +13,7 @@ export const data = [
   {
     id: 2, type: 'movie', title: 'Aliens', year: 1986, rating: 8.3,
     director: 'James Cameron',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/ac/Aliens_poster.png',
+    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/r1x5JGpyqZU8PYhbs4UcrO1Xb6x.jpg',
     desc: "Ellen Ripley returns to LV-426 alongside a squad of colonial marines — only to discover the colony has been overrun by an entire hive. James Cameron's sequel transforms intimate horror into a breathless action-war epic.",
     detailedDesc: "Widely regarded as one of the greatest sequels ever made. The colonial marines — each vividly characterized — bring a warmth that makes the horror hit harder. The final confrontation between Ripley in a power-loader and the Alien Queen is one of cinema's greatest climaxes.",
     pros: ["Perfect tonal shift from horror to action — both elements excel", "Unforgettable ensemble cast of colonial marines", "Power-loader vs Alien Queen is one of cinema's greatest sequences", "Ripley's maternal bond with Newt grounds the spectacle in emotion"],
@@ -23,7 +23,7 @@ export const data = [
   {
     id: 3, type: 'movie', title: 'Alien 3', year: 1992, rating: 6.4,
     director: 'David Fincher',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/8/80/Alien3_poster.jpg',
+    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/xh5wI0UoW7DfS1IyLy3d2CgrCEP.jpg',
     desc: "Ripley crash-lands on Fiorina 161, a maximum-security prison colony with no weapons. David Fincher's debut feature — made under brutal studio interference — remains a flawed but haunting film.",
     detailedDesc: "Fincher famously disowned the film due to extensive studio interference, yet both cuts contain sequences of genuine brilliance. The atmosphere is suffocating, and Weaver's performance is arguably her finest in the series. The controversial deaths of Hicks and Newt in the opening destroyed audience goodwill.",
     pros: ["Sigourney Weaver delivers her most nuanced Ripley performance", "The prison setting creates a genuinely claustrophobic horror atmosphere", "The self-sacrifice ending is brave and emotionally resonant", "Assembly cut vastly improves the theatrical version"],
@@ -33,7 +33,7 @@ export const data = [
   {
     id: 4, type: 'movie', title: 'Alien Resurrection', year: 1997, rating: 6.2,
     director: 'Jean-Pierre Jeunet',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/1/12/Alien_Resurrection_film_poster.jpg',
+    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/9aRDMlU5Zwpysilm0WCWzU2PCFv.jpg',
     desc: '200 years after Alien 3, Ripley is cloned with xenomorph DNA so scientists can harvest the queen within her. A bizarre, campy, often mesmerizing entry in the series.',
     detailedDesc: "Written by Joss Whedon and directed by Jean-Pierre Jeunet, Alien Resurrection is a fascinatingly odd film. Its darkly comic tone divides audiences, but the production design is inventive and the underwater xenomorph sequence is genuinely stunning.",
     pros: ["Visually inventive with distinctive French New Wave aesthetic", "The underwater xenomorph chase sequence is spectacular", "Ron Perlman brings enormous energy and wit", "Dark humor gives the film a unique voice in the franchise"],
@@ -43,7 +43,7 @@ export const data = [
   {
     id: 5, type: 'movie', title: 'Prometheus', year: 2012, rating: 7.0,
     director: 'Ridley Scott',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/6/60/Prometheus_film_poster.jpg',
+    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/qsYQflQhOuhDpQ0W2aOcwqgDAeI.jpg',
     desc: "Scientists follow a star map found in ancient cave paintings to a distant moon, seeking the origins of humanity. What they find is something ancient, vast, and deeply hostile.",
     detailedDesc: "Prometheus is deeply ambitious but hampered by its script's failure to match its ideas with coherent character behavior. Michael Fassbender's David — a synthetic who wrestles with his own creation — is among the franchise's most complex characters.",
     pros: ["Stunning cinematography — visually the most beautiful film in the series", "Michael Fassbender's David is one of cinema's best synthetic characters", "Ambitious philosophical themes about creation and belief", "Noomi Rapace's self-surgery sequence is one of the franchise's most shocking moments"],
@@ -53,7 +53,7 @@ export const data = [
   {
     id: 6, type: 'movie', title: 'Alien: Covenant', year: 2017, rating: 6.4,
     director: 'Ridley Scott',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d7/Alien_Covenant_poster.jpg',
+    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/zecMELPbU5YMQpC81Z8ImaaXuf9.jpg',
     desc: "The crew of the colony ship Covenant discover an uncharted paradise inhabited only by the rogue synthetic David, who has been conducting horrifying experiments for a decade.",
     detailedDesc: "Covenant course-corrects many of Prometheus's issues by delivering genuine xenomorph horror and fast-paced action. Fassbender's dual performance as both David and the newer model Walter is extraordinary. However, positioning David as the xenomorph's creator remains a divisive choice.",
     pros: ["Michael Fassbender's dual role is extraordinary — career-best work", "Returns the franchise to genuine horror with effective Xenomorph sequences", "Beautiful visuals continue the prequel trilogy's stunning cinematography", "David as engineer of xenomorphs is a bold and provocative idea"],
@@ -63,7 +63,7 @@ export const data = [
   {
     id: 7, type: 'movie', title: 'Alien: Romulus', year: 2024, rating: 7.3,
     director: 'Fede Álvarez',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5f/Alien_Romulus_film_poster.jpg',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg',
     desc: "A group of young colonial workers stumble onto an abandoned space station between the events of Alien and Aliens. Fede Álvarez strips the franchise back to pure survival horror with extraordinary results.",
     detailedDesc: "Alien: Romulus is arguably the most purely terrifying film since the original. Álvarez's direction is masterful — he understands Alien works best as a haunted house film set in space. Cailee Spaeny's Rain Carradine is an instantly compelling heroine.",
     pros: ["Returns the franchise to pure atmospheric horror with masterful tension", "Cailee Spaeny is an instantly iconic franchise heroine", "The space station setting provides perfect claustrophobic horror", "Practical effects and creature work are exceptional throughout"],
