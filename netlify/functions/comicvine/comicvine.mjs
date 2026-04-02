@@ -62,7 +62,6 @@ exports.handler = async (event) => {
     const data = await response.json();
     const image = data.results?.image;
     const rawCover = image?.medium_url ?? image?.original_url ?? null;
-    const volumeName = data.results?.name ?? null;
 
     // Return a proxied URL instead of the raw Comic Vine URL
     // so the browser never has to load from comicvine.gamespot.com directly
@@ -76,7 +75,7 @@ exports.handler = async (event) => {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify({ cover, name: volumeName }),
+      body: JSON.stringify({ cover }),
     };
   } catch (err) {
     console.error("[comicvine function] error:", err);

@@ -30,16 +30,10 @@ export default function Home() {
       const comicMap = comicResult.status === 'fulfilled' ? comicResult.value : {};
       const combined = { ...movieMap, ...comicMap };
       if (Object.keys(combined).length > 0) {
-        const updated = data.map((d) => {
-          const priorUrl = d.imageUrl && d.imageUrl.toString().trim() ? d.imageUrl : null;
-          const apiUrl = combined[d.id] || null;
-          const imageUrl = priorUrl || apiUrl || null;
-          if (apiUrl && !priorUrl) {
-            console.debug('[Home] Comic/movie override set:', d.title, '->', apiUrl);
-          }
-          return { ...d, imageUrl };
-        });
-        setEnriched(updated);
+        setEnriched(data.map((d) => ({
+          ...d,
+          imageUrl: d.imageUrl || combined[d.id] || d.imageUrl || null,
+        })));
       }
     });
     return () => { cancelled = true; };
