@@ -1,10 +1,9 @@
 // =============================================================
 // api.js — All external API integrations
 //
-//  TMDB          → Movie posters & metadata
-//  Open Library  → Book covers via ISBN  (no key needed)
-//  Comic Vine    → Comic volume covers   (key required)
-//  RAWG          → Game covers           (add key when ready)
+//  TMDB          → Movie posters    (works on real domain, not localhost)
+//  Open Library  → Book covers      (no key needed, works everywhere)
+//  Comic Vine    → Comic covers     (via Netlify serverless proxy)
 // =============================================================
 
 // -------------------------------------------------------------
@@ -37,100 +36,69 @@ export const fetchMovie = async (title, year) => {
   }
 };
 
-// -------------------------------------------------------------
-// 2. Open Library (Internet Archive) — Books
-//    No API key needed.
-//    Usage: getBookCoverUrl("9781785658037") → direct <img src>
-// -------------------------------------------------------------
-const OL_BASE = "https://covers.openlibrary.org/b/isbn";
-
-/** Returns a cover URL for a given ISBN. Synchronous — no fetch needed. */
-export const getBookCoverUrl = (isbn, size = "L") =>
-  `${OL_BASE}/${isbn}-${size}.jpg`;
-
-/** Fetches full book metadata (title, authors, publish_date, etc.) */
-export const fetchBookData = async (isbn) => {
-  try {
-    const res  = await fetch(
-      `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`
-    );
-    const json = await res.json();
-    return json[`ISBN:${isbn}`] ?? null;
-  } catch (err) {
-    console.error("[OpenLibrary] fetch error:", err);
-    return null;
-  }
+/**
+ * Batch-fetches TMDB posters for all movie entries.
+ * Returns a map of { id → posterUrl }.
+ * Falls back gracefully — a failed fetch just keeps the existing imageUrl.
+ */
+export const fetchAllMoviePosters = async (items) => {
+  const movies = items.filter((d) => d.type === "movie");
+  const results = await Promise.allSettled(
+    movies.map((d) => fetchMovie(d.title, d.year))
+  );
+  const map = {};
+  movies.forEach((d, i) => {
+    const val = results[i];
+    if (val.status === "fulfilled" && val.value?.posterUrl) {
+      map[d.id] = val.value.posterUrl;
+    }
+  });
+  return map;
 };
+
+// -------------------------------------------------------------
+// 2. Open Library — Books
+//    No API key needed. Cover IDs are stored in data.js as
+//    imageUrl already, so no fetch is needed at runtime.
+//    This helper is here if you ever need to look up by ISBN.
+// -------------------------------------------------------------
+export const getBookCoverUrl = (isbn, size = "L") =>
+  `https://covers.openlibrary.org/b/isbn/${isbn}-${size}.jpg`;
 
 // -------------------------------------------------------------
 // 3. Comic Vine — Comics
-//
-//    Comic Vine blocks direct browser requests (no CORS headers),
-//    so we route through corsproxy.io. For production, swap
-//    CORS_PROXY for your own backend endpoint.
-//
-//    We search by volume name and return the cover image URL.
-//    Results are cached in memory for the session.
+//    Routed through our Netlify serverless function at
+//    /.netlify/functions/comicvine to bypass CORS.
 // -------------------------------------------------------------
-const CV_KEY   = "11a97461452eee00cc36984e0956bc6565729625";
-const CV_BASE  = "https://comicvine.gamespot.com/api";
-const CV_PROXY = "https://corsproxy.io/?";
-
 const cvCache = {};
 
 /**
- * Searches Comic Vine for a volume by name and returns its cover image URL.
- * Falls back to null if not found or on error.
- *
- * @param {string} volumeName  - The comic volume title to search for
- * @param {number} [cvId]      - Optional: Comic Vine volume ID for exact lookup
- * @returns {Promise<string|null>}
+ * Fetches a comic cover via the Netlify proxy function.
+ * @param {number} cvId - Comic Vine volume ID (stored in data.js as cvId)
  */
-export const fetchComicCover = async (volumeName, cvId) => {
-  const cacheKey = cvId ?? volumeName;
-  if (cvCache[cacheKey] !== undefined) return cvCache[cacheKey];
-
+export const fetchComicCover = async (cvId) => {
+  if (cvCache[cvId] !== undefined) return cvCache[cvId];
   try {
-    let url;
-
-    if (cvId) {
-      // Exact lookup by ID — more reliable, avoids wrong search results
-      url = `${CV_BASE}/volume/4050-${cvId}/?api_key=${CV_KEY}&format=json&field_list=id,name,image`;
-    } else {
-      // Name search — returns first match
-      url = `${CV_BASE}/volumes/?api_key=${CV_KEY}&format=json&filter=name:${encodeURIComponent(volumeName)}&field_list=id,name,image&limit=1`;
-    }
-
-    const res  = await fetch(`${CV_PROXY}${encodeURIComponent(url)}`);
+    const res  = await fetch(`/.netlify/functions/comicvine?cvId=${cvId}`);
     const json = await res.json();
-
-    const imageObj = cvId
-      ? json.results?.image           // single volume lookup
-      : json.results?.[0]?.image;     // search result
-
-    // Prefer medium (faster load) → fall back to original
-    const cover = imageObj?.medium_url ?? imageObj?.original_url ?? null;
-    cvCache[cacheKey] = cover;
+    const cover = json.cover ?? null;
+    cvCache[cvId] = cover;
     return cover;
   } catch (err) {
     console.error("[ComicVine] fetch error:", err);
-    cvCache[cacheKey] = null;
+    cvCache[cvId] = null;
     return null;
   }
 };
 
 /**
- * Batch-fetches Comic Vine covers for all comic entries in your data array.
- * Returns a map of { id → coverUrl } for entries that have a cvSearch field.
- * Call once on app mount and merge results into your display data.
- *
- * @param {Array} items - Your data array (filtered to comics)
- * @returns {Promise<Object>} map of item id → image URL
+ * Batch-fetches Comic Vine covers for all comic entries that have a cvId.
+ * Returns a map of { id → coverUrl }.
  */
 export const fetchAllComicCovers = async (items) => {
-  const comics = items.filter((d) => d.type === "comic" && d.cvSearch);
+  const comics = items.filter((d) => d.type === "comic" && d.cvId);
   const results = await Promise.allSettled(
-    comics.map((d) => fetchComicCover(d.cvSearch, d.cvId))
+    comics.map((d) => fetchComicCover(d.cvId))
   );
   const map = {};
   comics.forEach((d, i) => {
@@ -141,40 +109,3 @@ export const fetchAllComicCovers = async (items) => {
   });
   return map;
 };
-
-// -------------------------------------------------------------
-// 4. RAWG — Games  (add key here when ready)
-// -------------------------------------------------------------
-// const RAWG_KEY  = "YOUR_RAWG_KEY_HERE";
-// const RAWG_BASE = "https://api.rawg.io/api";
-//
-// const rawgCache = {};
-//
-// export const fetchGameCover = async (title) => {
-//   if (rawgCache[title]) return rawgCache[title];
-//   try {
-//     const res  = await fetch(
-//       `${RAWG_BASE}/games?key=${RAWG_KEY}&search=${encodeURIComponent(title)}&page_size=1`
-//     );
-//     const json = await res.json();
-//     const cover = json.results?.[0]?.background_image ?? null;
-//     rawgCache[title] = cover;
-//     return cover;
-//   } catch (err) {
-//     console.error("[RAWG] fetch error:", err);
-//     return null;
-//   }
-// };
-//
-// export const fetchAllGameCovers = async (items) => {
-//   const games = items.filter((d) => d.type === "game");
-//   const results = await Promise.allSettled(
-//     games.map((d) => fetchGameCover(d.title))
-//   );
-//   const map = {};
-//   games.forEach((d, i) => {
-//     const val = results[i];
-//     if (val.status === "fulfilled" && val.value) map[d.id] = val.value;
-//   });
-//   return map;
-// };
