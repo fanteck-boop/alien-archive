@@ -30,7 +30,10 @@ export default function Home() {
       const comicMap = comicResult.status === 'fulfilled' ? comicResult.value : {};
       const combined = { ...movieMap, ...comicMap };
       if (Object.keys(combined).length > 0) {
-        setEnriched(data.map((d) => ({ ...d, imageUrl: combined[d.id] ?? d.imageUrl })));
+        setEnriched(data.map((d) => ({
+          ...d,
+          imageUrl: d.imageUrl || combined[d.id] || d.imageUrl || null,
+        })));
       }
     });
     return () => { cancelled = true; };
