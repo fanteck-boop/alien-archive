@@ -545,7 +545,7 @@ export const data = [
   {
     id: 47, type: 'movie', title: 'AVP: Alien vs. Predator', year: 2004, rating: 5.6,
     director: 'Paul W.S. Anderson',
-    imageUrl: 'https://image.tmdb.org/t/p/w500/kQDuOKD5XUcWtgrdpeLpQmllNqT.jpg',
+    imageUrl: null,
     desc: 'A team of scientists and mercenaries descend into an ancient pyramid buried beneath the Antarctic ice — unaware they have walked into the middle of a centuries-old war between two apex species.',
     detailedDesc: "Paul W.S. Anderson's crossover concept is inherently exciting, and the Antarctic pyramid setting is genuinely inventive. But a PG-13 rating defangs both creatures, and the film rushes through character establishment to reach action that never feels truly dangerous.",
     pros: ['The pyramid-as-hunting-ground concept is clever and well-realized', 'Sanaa Lathan is a compelling and capable lead', 'Both creature designs are faithfully recreated', 'Lance Henriksen brings gravitas as Weyland'],
@@ -555,7 +555,7 @@ export const data = [
   {
     id: 48, type: 'movie', title: 'Aliens vs. Predator: Requiem', year: 2007, rating: 4.7,
     director: 'Colin Strause & Greg Strause',
-    imageUrl: 'https://image.tmdb.org/t/p/w500/xR4Mslyum7bjzAF1rlUX2HrlwhZ.jpg',
+    imageUrl: null,
     desc: 'A Predator ship crashes in a small Colorado town, releasing a Predalien hybrid and a swarm of xenomorphs on the unsuspecting population. A lone Predator arrives to clean up the mess.',
     detailedDesc: "Requiem overcorrects the first film's tame rating with extreme gore but substitutes brutality for storytelling. The film's notoriously dark cinematography — literally too dark to see in many sequences — became a franchise punchline. The small-town setting had potential that was entirely squandered.",
     pros: ['Returns to R-rated violence after the neutered first film', 'The Predalien hybrid is a visually interesting creature concept', 'Small-town setting offers a different visual palette', 'Some practical effects work is effective'],
@@ -565,7 +565,7 @@ export const data = [
   {
     id: 49, type: 'movie', title: 'Alien: Earth', year: 2025, rating: 7.8,
     director: 'Noah Hawley',
-    imageUrl: 'https://image.tmdb.org/t/p/w500/3TkSMGKSbYBFlMlFzxDLfMf3mMB.jpg',
+    imageUrl: null,
     desc: 'Set before the original film, a Weyland-Yutani spacecraft crash-lands on Earth carrying a deadly cargo. A young woman and a ragtag group must face the most terrifying life form in the universe — on their own planet.',
     detailedDesc: "Noah Hawley's series brings the Alien franchise to Earth for the first time, exploring how the xenomorph threat reshapes humanity on familiar ground. The show expands the franchise's corporate horror elements while delivering genuine creature terror, with strong performances anchoring its slower-burn approach.",
     pros: ['Brings the franchise to Earth with a fresh and effective perspective', 'Noah Hawley brings genuine craft and atmosphere to the material', 'Strong ensemble cast with well-developed characters', 'Expands the Weyland-Yutani corporate mythology meaningfully'],
