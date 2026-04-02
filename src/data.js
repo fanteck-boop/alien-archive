@@ -1,5 +1,17 @@
+// Cover image strategy per type:
+//
+//  Movies  → imageUrl: pre-resolved TMDB URLs (no runtime fetch needed)
+//  Books   → imageUrl: Open Library ISBN cover URLs (no key, no fetch)
+//  Comics  → imageUrl: Wikipedia fallback
+//             cvSearch: name passed to Comic Vine search
+//             cvId:     Comic Vine volume ID for exact lookup (more reliable)
+//  Games   → imageUrl: Wikipedia fallback
+//             rawgSearch: title passed to RAWG (uncomment in api.js when ready)
+
 export const data = [
+
   // ── MOVIES ──
+  // Posters sourced from TMDB — already resolved, no runtime fetch needed.
   {
     id: 1, type: 'movie', title: 'Alien', year: 1979, rating: 8.4,
     director: 'Ridley Scott',
@@ -13,7 +25,7 @@ export const data = [
   {
     id: 2, type: 'movie', title: 'Aliens', year: 1986, rating: 8.3,
     director: 'James Cameron',
-    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/r1x5JGpyqZU8PYhbs4UcrO1Xb6x.jpg',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/r1x5JGpyqZU8PYhbs4UcrO1Xb6x.jpg',
     desc: "Ellen Ripley returns to LV-426 alongside a squad of colonial marines — only to discover the colony has been overrun by an entire hive. James Cameron's sequel transforms intimate horror into a breathless action-war epic.",
     detailedDesc: "Widely regarded as one of the greatest sequels ever made. The colonial marines — each vividly characterized — bring a warmth that makes the horror hit harder. The final confrontation between Ripley in a power-loader and the Alien Queen is one of cinema's greatest climaxes.",
     pros: ["Perfect tonal shift from horror to action — both elements excel", "Unforgettable ensemble cast of colonial marines", "Power-loader vs Alien Queen is one of cinema's greatest sequences", "Ripley's maternal bond with Newt grounds the spectacle in emotion"],
@@ -23,7 +35,7 @@ export const data = [
   {
     id: 3, type: 'movie', title: 'Alien 3', year: 1992, rating: 6.4,
     director: 'David Fincher',
-    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/xh5wI0UoW7DfS1IyLy3d2CgrCEP.jpg',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/xh5wI0UoW7DfS1IyLy3d2CgrCEP.jpg',
     desc: "Ripley crash-lands on Fiorina 161, a maximum-security prison colony with no weapons. David Fincher's debut feature — made under brutal studio interference — remains a flawed but haunting film.",
     detailedDesc: "Fincher famously disowned the film due to extensive studio interference, yet both cuts contain sequences of genuine brilliance. The atmosphere is suffocating, and Weaver's performance is arguably her finest in the series. The controversial deaths of Hicks and Newt in the opening destroyed audience goodwill.",
     pros: ["Sigourney Weaver delivers her most nuanced Ripley performance", "The prison setting creates a genuinely claustrophobic horror atmosphere", "The self-sacrifice ending is brave and emotionally resonant", "Assembly cut vastly improves the theatrical version"],
@@ -33,7 +45,7 @@ export const data = [
   {
     id: 4, type: 'movie', title: 'Alien Resurrection', year: 1997, rating: 6.2,
     director: 'Jean-Pierre Jeunet',
-    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/9aRDMlU5Zwpysilm0WCWzU2PCFv.jpg',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/9aRDMlU5Zwpysilm0WCWzU2PCFv.jpg',
     desc: '200 years after Alien 3, Ripley is cloned with xenomorph DNA so scientists can harvest the queen within her. A bizarre, campy, often mesmerizing entry in the series.',
     detailedDesc: "Written by Joss Whedon and directed by Jean-Pierre Jeunet, Alien Resurrection is a fascinatingly odd film. Its darkly comic tone divides audiences, but the production design is inventive and the underwater xenomorph sequence is genuinely stunning.",
     pros: ["Visually inventive with distinctive French New Wave aesthetic", "The underwater xenomorph chase sequence is spectacular", "Ron Perlman brings enormous energy and wit", "Dark humor gives the film a unique voice in the franchise"],
@@ -43,7 +55,7 @@ export const data = [
   {
     id: 5, type: 'movie', title: 'Prometheus', year: 2012, rating: 7.0,
     director: 'Ridley Scott',
-    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/qsYQflQhOuhDpQ0W2aOcwqgDAeI.jpg',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/qsYQflQhOuhDpQ0W2aOcwqgDAeI.jpg',
     desc: "Scientists follow a star map found in ancient cave paintings to a distant moon, seeking the origins of humanity. What they find is something ancient, vast, and deeply hostile.",
     detailedDesc: "Prometheus is deeply ambitious but hampered by its script's failure to match its ideas with coherent character behavior. Michael Fassbender's David — a synthetic who wrestles with his own creation — is among the franchise's most complex characters.",
     pros: ["Stunning cinematography — visually the most beautiful film in the series", "Michael Fassbender's David is one of cinema's best synthetic characters", "Ambitious philosophical themes about creation and belief", "Noomi Rapace's self-surgery sequence is one of the franchise's most shocking moments"],
@@ -53,7 +65,7 @@ export const data = [
   {
     id: 6, type: 'movie', title: 'Alien: Covenant', year: 2017, rating: 6.4,
     director: 'Ridley Scott',
-    imageUrl: 'https://media.themoviedb.org/t/p/w300_and_h450_face/zecMELPbU5YMQpC81Z8ImaaXuf9.jpg',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/zecMELPbU5YMQpC81Z8ImaaXuf9.jpg',
     desc: "The crew of the colony ship Covenant discover an uncharted paradise inhabited only by the rogue synthetic David, who has been conducting horrifying experiments for a decade.",
     detailedDesc: "Covenant course-corrects many of Prometheus's issues by delivering genuine xenomorph horror and fast-paced action. Fassbender's dual performance as both David and the newer model Walter is extraordinary. However, positioning David as the xenomorph's creator remains a divisive choice.",
     pros: ["Michael Fassbender's dual role is extraordinary — career-best work", "Returns the franchise to genuine horror with effective Xenomorph sequences", "Beautiful visuals continue the prequel trilogy's stunning cinematography", "David as engineer of xenomorphs is a bold and provocative idea"],
@@ -72,9 +84,11 @@ export const data = [
   },
 
   // ── GAMES ──
+  // rawgSearch field is ready — uncomment fetchAllGameCovers in api.js when you have the RAWG key.
   {
     id: 8, type: 'game', title: 'Alien: Isolation', year: 2014, rating: 8.5,
     developer: 'Creative Assembly',
+    rawgSearch: 'Alien Isolation',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/1/1a/Alien_Isolation_video_game_cover.jpg',
     desc: "Amanda Ripley travels to the decaying Sevastopol Station to find answers about her mother's fate — unaware that a single Xenomorph has hunted the station's inhabitants to near-extinction.",
     detailedDesc: "Creative Assembly studied hundreds of hours of footage from the original film to recreate its aesthetic with stunning accuracy. The Xenomorph's AI is procedurally driven — it learns from your behavior, making every hiding spot feel temporary. The sound design is extraordinary.",
@@ -85,6 +99,7 @@ export const data = [
   {
     id: 9, type: 'game', title: 'Alien vs. Predator (1999)', year: 1999, rating: 8.2,
     developer: 'Rebellion',
+    rawgSearch: 'Aliens vs Predator 1999',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/54/Aliens_Versus_Predator_PC_game_cover.jpg',
     desc: "Play as a Colonial Marine, Alien, or Predator in three distinct campaigns — each with entirely different gameplay mechanics. A landmark first-person shooter that remains a cult classic.",
     detailedDesc: "AvP 1999 was revolutionary for its era. The Marine campaign remains one of gaming's most effective horror experiences — the motion tracker's bleeping is genuinely terrifying. The Alien and Predator campaigns offered entirely different experiences that shaped the visual language of xenomorphs in games for decades.",
@@ -95,6 +110,7 @@ export const data = [
   {
     id: 10, type: 'game', title: 'Alien Trilogy', year: 1996, rating: 7.2,
     developer: 'Probe Entertainment',
+    rawgSearch: 'Alien Trilogy',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5a/AlienTrilogy.jpg',
     desc: "A first-person shooter adaptation of all three original Alien films — explore levels drawn from each movie while battling xenomorphs with a satisfying arsenal of period-authentic weapons.",
     detailedDesc: "Alien Trilogy was a landmark for the franchise in gaming, offering the first comprehensive tour through the world of all three films. Its atmosphere was remarkable for its era and its sound design — drawing directly from the films' audio libraries — gave it an authenticity later games would strive for.",
@@ -105,6 +121,7 @@ export const data = [
   {
     id: 11, type: 'game', title: 'Alien: Infestation', year: 2011, rating: 7.8,
     developer: 'WayForward',
+    rawgSearch: 'Alien Infestation',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/2/23/Alien_Infestation_box_art.png',
     desc: "A 2D Metroidvania for Nintendo DS set after Aliens — command a squad of 19 Colonial Marines with permanent death and gorgeous pixel art. One of the franchise's most underrated entries.",
     detailedDesc: "WayForward brought their pixel-art mastery to this surprisingly deep Metroidvania. Each of the 19 marines has a name and personality — and when they die, they're gone for good. The weight this adds to every encounter is remarkable.",
@@ -115,6 +132,7 @@ export const data = [
   {
     id: 12, type: 'game', title: 'Alien vs. Predator (2010)', year: 2010, rating: 5.8,
     developer: 'Rebellion',
+    rawgSearch: 'Aliens vs Predator 2010',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/6/62/Alien_vs._Predator_2010_cover.jpg',
     desc: "Rebellion's 2010 reboot returns with three playable species and updated graphics — but fails to recapture the atmosphere or innovation of the 1999 original despite competent production values.",
     detailedDesc: "Anticipated as a triumphant return, AvP 2010 ultimately disappoints despite its technical proficiency. The three campaigns are shorter and less inventive than their predecessor.",
@@ -125,6 +143,7 @@ export const data = [
   {
     id: 13, type: 'game', title: 'Aliens: Colonial Marines', year: 2013, rating: 4.5,
     developer: 'Gearbox Software',
+    rawgSearch: 'Aliens Colonial Marines',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f9/Aliens_Colonial_Marines_cover.jpg',
     desc: "A squad-based first-person shooter set after Aliens — marketed aggressively as a canonical sequel. Became one of gaming's most infamous releases after the finished product diverged dramatically from pre-release demonstrations.",
     detailedDesc: "The Colonial Marines controversy centered on a pre-release demo that bore little resemblance to the shipping product. A notable modder later discovered the AI was broken by a single typo in the game's code. Even fixed, it remains a mediocre experience.",
@@ -135,6 +154,7 @@ export const data = [
   {
     id: 14, type: 'game', title: 'Aliens: Fireteam Elite', year: 2021, rating: 6.5,
     developer: 'Cold Iron Studios',
+    rawgSearch: 'Aliens Fireteam Elite',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/ab/Aliens_Fireteam_Elite.jpg',
     desc: "A third-person co-operative shooter set 23 years after the original trilogy — three marines face waves of xenomorphs and synthetics across a four-chapter campaign.",
     detailedDesc: "Fireteam Elite knows exactly what it is — a competent co-op horde shooter in the Alien universe. It doesn't attempt to be Isolation. The class system is satisfying, enemy variety is impressive, and the xenomorph behavior is authentically threatening.",
@@ -145,6 +165,7 @@ export const data = [
   {
     id: 15, type: 'game', title: 'Alien: Rogue Incursion', year: 2024, rating: 7.0,
     developer: 'Survios',
+    rawgSearch: 'Alien Rogue Incursion',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8e/Alien_Rogue_Incursion.jpg',
     desc: "The first major VR entry in the franchise plunges players into a Weyland-Yutani research facility overrun by xenomorphs — delivering an unparalleled sense of physical presence in the Alien universe.",
     detailedDesc: "Rogue Incursion is a genuine achievement for VR gaming — the sense of scale when a xenomorph looms over you is unlike anything achievable on a flat screen. The stealth mechanics translate exceptionally well to VR.",
@@ -154,10 +175,13 @@ export const data = [
   },
 
   // ── BOOKS ──
+  // imageUrl uses Open Library ISBN covers — no API key, no fetch, works instantly.
+  // isbn field is kept for reference and for fetchBookData() if you need metadata.
   {
     id: 16, type: 'book', title: 'Alien: The Cold Forge', year: 2018, rating: 8.1,
     author: 'Alex White',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/2/22/Alien_The_Cold_Forge.jpg',
+    isbn: '9781785658037',
+    imageUrl: 'https://covers.openlibrary.org/b/id/14303985-M.jpg',
     desc: "Aboard a remote research station, a terminally ill scientist races to weaponize xenomorph DNA before Weyland-Yutani shuts her program down — while a corporate hatchet-man arrives to evaluate which projects deserve survival.",
     detailedDesc: "Alex White's debut franchise novel is a sophisticated thriller that uses the xenomorph as backdrop for a genuinely complex character study. Blue Marsalis — the terminally ill scientist who conducts her research through a synthetic proxy body — is one of the most morally fascinating protagonists in any Alien fiction.",
     pros: ["Blue Marsalis is one of the best-written protagonists in any Alien novel", "Corporate horror and xenomorph horror are balanced with equal skill", "Explores genuinely novel ideas about consciousness and proxy embodiment", "Alex White's prose is exceptional — literary quality above most franchise fiction"],
@@ -167,7 +191,8 @@ export const data = [
   {
     id: 17, type: 'book', title: 'Alien: Into Charybdis', year: 2021, rating: 8.0,
     author: 'Alex White',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/8/89/Alien_Into_Charybdis.jpg',
+    isbn: '9781789091304',
+    imageUrl: 'https://covers.openlibrary.org/b/id/10873660-M.jpg',
     desc: "A deep-space natural gas facility becomes a death trap when a xenomorph outbreak coincides with a corporate conspiracy — and survivors must navigate both threats to escape a planet-sized killing machine.",
     detailedDesc: "Alex White's second franchise novel is even more assured than The Cold Forge. The ensemble cast is exceptionally well-drawn, the pacing is tighter, and the corporate conspiracy plot dovetails beautifully with the creature horror.",
     pros: ["Alex White's writing continues to be the finest in the novel line", "Ensemble cast is exceptionally well-characterized", "Corporate conspiracy and creature horror are beautifully integrated", "The facility setting is vividly realized with exceptional spatial clarity"],
@@ -177,7 +202,8 @@ export const data = [
   {
     id: 18, type: 'book', title: 'Alien: Phalanx', year: 2020, rating: 7.8,
     author: 'Scott Sigler',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a9/Alien_Phalanx.jpg',
+    isbn: '9781789091076',
+    imageUrl: 'https://covers.openlibrary.org/b/id/13288948-M.jpg',
     desc: "On a planet where xenomorphs have wiped out technology, a pre-industrial human society survives by maintaining distance from the hive — until one brave runner discovers that salvation requires facing the darkness directly.",
     detailedDesc: "Sigler's utterly unique contribution to the franchise imagines a world stripped of technology, forcing humans to confront the xenomorph threat with medieval tools and tactics. The result is something thrilling and entirely new — part fantasy epic, part survival horror.",
     pros: ["The post-apocalyptic pre-industrial setting is genuinely unique in the franchise", "Sigler's action writing is kinetic and visceral", "The exploration of how humanity adapts to xenomorph coexistence is fascinating", "A genuinely original idea that expands what an Alien story can be"],
@@ -187,7 +213,8 @@ export const data = [
   {
     id: 19, type: 'book', title: 'Aliens: Vasquez', year: 2023, rating: 7.7,
     author: 'V. Castro',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/2/28/Aliens_Vasquez_novel.jpg',
+    isbn: '9781803362762',
+    imageUrl: 'https://covers.openlibrary.org/b/id/13558565-M.jpg',
     desc: "The origin story of Private Jenette Vasquez — one of the most iconic characters in Aliens — tracing her life from childhood in Los Angeles through her enlistment and the events of LV-426.",
     detailedDesc: "V. Castro's passionate novel succeeds because it takes Vasquez seriously as a full human being rather than a badass archetype. Her Mexican-American heritage, her family history, and her complicated relationship with violence are all explored with depth.",
     pros: ["Vasquez is fully realized as a complex, three-dimensional character", "V. Castro's prose is passionate and emotionally intelligent throughout", "The cultural specificity enriches the character enormously", "The bridge into the events of Aliens is handled with admirable fidelity"],
@@ -197,7 +224,8 @@ export const data = [
   {
     id: 20, type: 'book', title: 'Aliens: Bug Hunt', year: 2017, rating: 7.6,
     author: 'Jonathan Maberry (Ed.)',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/b/bf/Aliens_Bug_Hunt.jpg',
+    isbn: '9781785654572',
+    imageUrl: 'https://covers.openlibrary.org/b/id/8742185-M.jpg',
     desc: "An anthology of 17 original stories by acclaimed horror and science fiction authors — marines, scientists, mercenaries, and colonists face the xenomorph threat across diverse settings and timelines.",
     detailedDesc: "Anthology collections live and die by variance in quality, and Bug Hunt is remarkably consistent. The best stories — particularly those by Yvonne Navarro and Dan Abnett — are among the finest short fiction in the franchise.",
     pros: ["Exceptional consistency across 17 stories — very few weak entries", "Diverse tones and settings show the franchise's narrative range", "Several stories are among the best franchise fiction in any format", "The anthology format allows experimental approaches impossible in novels"],
@@ -207,7 +235,8 @@ export const data = [
   {
     id: 21, type: 'book', title: 'Alien: River of Pain', year: 2014, rating: 7.5,
     author: 'Christopher Golden',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f4/Alien_River_of_Pain.jpg',
+    isbn: '9781781167526',
+    imageUrl: 'https://covers.openlibrary.org/b/id/10203190-M.jpg',
     desc: "The untold story of the Hadley's Hope colonists on LV-426 — what happened to those families in the days and weeks before the Colonial Marines arrived in Aliens.",
     detailedDesc: "Christopher Golden centers on ordinary colonists — the parents, children, and workers who built their lives on LV-426. Seeing the colony's fall from a civilian perspective transforms what was background tragedy in Aliens into something genuinely devastating.",
     pros: ["A humanizing perspective on events previously shown only as aftermath", "The colonist characters are powerfully rendered — particularly the children", "Faithfully expands canonical events from Aliens with no contradictions", "Christopher Golden's emotional intelligence elevates franchise fiction"],
@@ -217,7 +246,8 @@ export const data = [
   {
     id: 22, type: 'book', title: 'Alien: Colony War', year: 2023, rating: 7.5,
     author: 'David Barnett',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Alien_Colony_War.jpg',
+    isbn: '9781803362236',
+    imageUrl: 'https://imgcdn.saxo.com/_9781789098891',
     desc: "Caught between a brewing colonial independence movement and a catastrophic xenomorph outbreak, survivors must navigate a battlefield where humans are killing humans while something far worse hunts them all.",
     detailedDesc: "Colony War is an ambitious novel that uses the xenomorph threat as backdrop to political and military conflict — asking what happens when ideological warfare and species-level horror collide.",
     pros: ["The intersection of colonial politics and xenomorph horror is inventive and fresh", "Strong ensemble with diverse and well-differentiated character voices", "Barnett's action writing is confident and pacey", "Raises interesting questions about autonomy, ideology, and survival"],
@@ -227,7 +257,8 @@ export const data = [
   {
     id: 23, type: 'book', title: 'Alien: Out of the Shadows', year: 2014, rating: 7.2,
     author: 'Tim Lebbon',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Alien_Out_of_the_Shadows.jpg',
+    isbn: '9781781167502',
+    imageUrl: 'https://covers.openlibrary.org/b/id/10256324-M.jpg',
     desc: "A canonical novel set between Alien and Aliens — Ripley, still drifting in hypersleep, is awakened when a mining crew on a storm-wracked planet makes a catastrophic discovery.",
     detailedDesc: "Tim Lebbon has the difficult task of writing a story featuring Ripley between the two films without affecting her established arc. His canonical solution threads the needle with skill. The mining vessel setting and the storm-world planet are vividly realized.",
     pros: ["Skillfully navigates the canonical constraints of its between-films setting", "Captures the original film's dread and industrial atmosphere faithfully", "New characters are well-drawn and emotionally engaging", "Tim Lebbon's prose style suits the franchise's tone perfectly"],
@@ -237,7 +268,8 @@ export const data = [
   {
     id: 24, type: 'book', title: 'Alien: Prototype', year: 2019, rating: 7.3,
     author: 'Tim Waggoner',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5e/Alien_Prototype.jpg',
+    isbn: '9781789090970',
+    imageUrl: 'https://covers.openlibrary.org/b/id/10159644-M.jpg',
     desc: "A corporate geneticist at a rival company discovers a new xenomorph subspecies with enhanced intelligence — and must fight to stop it from escaping a research facility.",
     detailedDesc: "Tim Waggoner's contribution to the novel line is a propulsive, fast-paced thriller that prioritizes momentum over depth. The new subspecies concept is genuinely interesting — an alien that learns, adapts, and strategizes is terrifying in a way the standard creature cannot be.",
     pros: ["The evolved xenomorph subspecies concept is genuinely frightening and inventive", "Fast-paced thriller structure keeps the narrative moving effectively", "The rival corporation setting expands the franchise's corporate world interestingly", "A solid, reliable entry that delivers on its premise without overreaching"],
@@ -247,7 +279,8 @@ export const data = [
   {
     id: 25, type: 'book', title: 'Alien: The Weyland-Yutani Report', year: 2016, rating: 7.9,
     author: 'S.D. Perry',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/0/05/Alien_The_Weyland-Yutani_Report.jpg',
+    isbn: '9781608879434',
+    imageUrl: 'https://covers.openlibrary.org/b/id/8883928-M.jpg',
     desc: "An in-universe classified dossier compiled by Weyland-Yutani's Special Services division — documenting all known xenomorph encounters, covert operations, Ripley's complete file, and extensive biological analysis.",
     detailedDesc: "The Weyland-Yutani Report is an exceptional piece of franchise world-building — a coffee-table book disguised as corporate espionage. The in-universe framing is handled with intelligence and wit, and the design work is outstanding.",
     pros: ["Extraordinary design work — the in-universe presentation is convincingly authentic", "Comprehensive synthesis of all film canon through Prometheus", "S.D. Perry's writing captures the corporate voice perfectly", "An essential reference for fans of the franchise's lore and world-building"],
@@ -257,7 +290,8 @@ export const data = [
   {
     id: 26, type: 'book', title: "Alien: Inferno's Fall", year: 2022, rating: 7.4,
     author: 'Philippa Ballantine & Clara Carija',
-    imageUrl: "https://upload.wikimedia.org/wikipedia/en/a/a6/Alien_Inferno%27s_Fall.jpg",
+    isbn: '9781803362700',
+    imageUrl: 'https://covers.openlibrary.org/b/id/13614874-M.jpg',
     desc: "The Jackals — a scrappy band of survivors — battle xenomorphs and the full force of Weyland-Yutani across the ruins of a fallen colony in a kinetic, character-driven action novel.",
     detailedDesc: "Ballantine and Carija bring a collaborative energy to the Jackals' story that gives the novel a distinctive rhythm. The team dynamic is well-established, the action sequences are kinetic and well-choreographed, and the corporate antagonism feels genuinely threatening.",
     pros: ["The Jackals ensemble is charismatic and well-differentiated", "Action sequences are kinetic, well-paced, and exciting throughout", "Corporate antagonism is handled with satisfying menace", "The collaborative authorship gives the novel an energetic, distinctive voice"],
@@ -267,7 +301,8 @@ export const data = [
   {
     id: 27, type: 'book', title: 'Alien: Uncivil War', year: 2023, rating: 7.3,
     author: 'Brendan Deneen',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e5/Alien_Uncivil_War.jpg',
+    isbn: '9781803362748',
+    imageUrl: 'https://imgcdn.saxo.com/_9798874695385',
     desc: "A soldier unravels a vast conspiracy linking humanity's civil wars to a Weyland-Yutani xenomorph weaponization program — discovering that the most dangerous predator may be the one funding the conflict.",
     detailedDesc: "Uncivil War is a conspiracy thriller in the Alien universe that works better as a political narrative than a horror one. Deneen's background in storytelling gives him a strong handle on plot mechanics, and the central conspiracy is inventive.",
     pros: ["The conspiracy thriller structure is inventive and well-plotted", "Political dimensions add fresh thematic depth to franchise fiction", "The central mystery is genuinely engaging and well-paced", "Strong sense of the expanded universe's political geography"],
@@ -277,7 +312,8 @@ export const data = [
   {
     id: 28, type: 'book', title: 'Alien: Covenant — Origins', year: 2017, rating: 6.8,
     author: 'Alan Dean Foster',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/6/67/Alien_Covenant_Origins.jpg',
+    isbn: '9781785657016',
+    imageUrl: 'https://covers.openlibrary.org/b/id/10129303-M.jpg',
     desc: "A prequel to Alien: Covenant following the colony ship crew before they depart — exploring their relationships, motivations, and the opposition they face before ever leaving Earth's orbit.",
     detailedDesc: "Alan Dean Foster is the franchise's most experienced novelization hand — he wrote the original Alien novelization in 1979. Origins is a workmanlike entry that provides useful character context for Covenant's crew without being essential reading.",
     pros: ["Provides useful character background for the Covenant crew before their mission", "Alan Dean Foster's professional craft ensures reliable, smooth storytelling", "The Earth-based conspiracy subplot is an interesting addition to franchise lore", "Short and efficiently paced — doesn't outstay its welcome"],
@@ -287,7 +323,8 @@ export const data = [
   {
     id: 29, type: 'book', title: 'Alien: Resurrection (Novelization)', year: 1997, rating: 6.5,
     author: 'A.C. Crispin',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Alien_Resurrection_novelization.jpg',
+    isbn: '9780446604697',
+    imageUrl: 'https://covers.openlibrary.org/b/id/6957542-M.jpg',
     desc: "A.C. Crispin's adaptation of the fourth film expands Joss Whedon's script with additional interiority, backstory for the supporting cast, and deeper exploration of the cloned Ripley's fractured psychology.",
     detailedDesc: "Crispin does honorable work here — Ripley's internal experience of her cloned existence is more fully explored, and several supporting characters receive welcome depth. It remains fundamentally tied to the film's weaknesses, but represents the best version of this story's potential.",
     pros: ["Deeper exploration of clone-Ripley's psychological disorientation than the film provides", "Supporting characters receive more development and backstory", "Crispin's prose is competent and moves efficiently", "Provides a more complete experience than the film alone"],
@@ -296,9 +333,14 @@ export const data = [
   },
 
   // ── COMICS ──
+  // imageUrl: Wikipedia fallback (shown until Comic Vine loads)
+  // cvSearch:  name passed to Comic Vine volume search
+  // cvId:      Comic Vine volume ID — used for exact lookup when known
   {
     id: 30, type: 'comic', title: 'Aliens: Dead Orbit', year: 2017, rating: 8.8,
     author: 'James Stokoe',
+    cvSearch: 'Aliens Dead Orbit',
+    cvId: 95570,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/4/49/Aliens_Dead_Orbit.jpg',
     desc: "Widely regarded as the finest Alien comic ever created — a lone engineer survives a catastrophic xenomorph outbreak aboard a space station, reconstructing events through memory and desperation in James Stokoe's extraordinarily dense artwork.",
     detailedDesc: "James Stokoe spent years creating Dead Orbit, and every page demonstrates why. His artwork is incomprehensibly detailed — industrial textures, alien biomechanics, and zero-gravity horror rendered in pen-and-ink with obsessive precision. Dead Orbit is not just a great franchise comic — it is a great comic, period.",
@@ -309,6 +351,8 @@ export const data = [
   {
     id: 31, type: 'comic', title: 'Aliens (Dark Horse Original)', year: 1988, rating: 8.5,
     author: 'Mark Verheiden',
+    cvSearch: 'Aliens',
+    cvId: 11495,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/2/21/Aliens_DH_comics.jpg',
     desc: "The landmark comic that defined the expanded universe — set years after Aliens, Hicks and Newt discover the xenomorphs have reached Earth. Brutal, visionary, and influential beyond measure.",
     detailedDesc: "Mark Verheiden's original Aliens comic was the first major canonical expansion of the franchise. The concept — bringing the xenomorph threat to Earth — was audacious. When the films later contradicted its continuity by killing Hicks and Newt, the comics were retroactively renamed — but their influence remained total.",
@@ -319,8 +363,10 @@ export const data = [
   {
     id: 32, type: 'comic', title: 'Aliens: Outbreak', year: 1989, rating: 8.3,
     author: 'Mark Verheiden',
+    cvSearch: 'Aliens Outbreak',
+    cvId: 18219,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a7/Aliens_Outbreak_comic.jpg',
-    desc: "The first canonical continuation of Aliens — Hicks and Newt years later, a rogue corporation's xenomorph weaponization program, and a confrontation with the alien queen mother. The comic that proved the franchise had extraordinary expanded universe potential.",
+    desc: "The first canonical continuation of Aliens — Hicks and Newt years later, a rogue corporation's xenomorph weaponization program, and a confrontation with the alien queen mother.",
     detailedDesc: "Outbreak is historically significant as the first proof that the Alien franchise could support compelling narrative expansion beyond the films. The concept of an alien queen mother — a creature of vast scale and intelligence — is inspired.",
     pros: ["Historically foundational — proved the franchise's expanded universe potential", "The alien queen mother concept is a brilliant and terrifying escalation", "Hicks and Newt's characterization is faithful and emotionally resonant", "Sets the tone and visual language for decades of franchise comics"],
     cons: ["Retroactive film continuity changes undermine its canonical status", "Some story elements were superseded and contradicted by later franchise entries", "Pacing can feel rushed in places as events escalate rapidly", "The art quality varies across the collected issues"],
@@ -329,6 +375,8 @@ export const data = [
   {
     id: 33, type: 'comic', title: 'Aliens: Salvation', year: 1993, rating: 8.2,
     author: 'Dave Gibbons & Mike Mignola',
+    cvSearch: 'Aliens Salvation',
+    cvId: 18426,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/8/80/Aliens_Salvation.jpg',
     desc: "A missionary stranded on a xenomorph-infested world finds faith and fury in this gorgeous collaboration between Watchmen artist Dave Gibbons and Hellboy creator Mike Mignola.",
     detailedDesc: "Salvation uses the xenomorph threat to explore faith, sin, and redemption in genuinely thoughtful ways. The protagonist's crisis of belief — confronted with proof that the universe is capable of producing something as purely evil as the Alien — gives the comic a literary quality rare in franchise work.",
@@ -339,6 +387,8 @@ export const data = [
   {
     id: 34, type: 'comic', title: 'Alien vs. Predator (Original)', year: 1990, rating: 8.0,
     author: 'Mark Verheiden & Mike Richardson',
+    cvSearch: 'Alien vs Predator',
+    cvId: 3096,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e0/AvP_comic_cover.jpg',
     desc: "The original AvP miniseries that launched one of pop culture's most enduring crossover concepts — a prospector on a remote world becomes the unwilling prize in an ancient ritual hunt.",
     detailedDesc: "The original AvP comic is a masterpiece of franchise world-building. The concept of the Predators using Alien hives as coming-of-age hunting grounds is inspired. The film adaptations never matched what was achieved here.",
@@ -349,6 +399,8 @@ export const data = [
   {
     id: 35, type: 'comic', title: 'Aliens: Defiance', year: 2016, rating: 7.9,
     author: 'Brian Wood',
+    cvSearch: 'Aliens Defiance',
+    cvId: 90316,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Aliens_Defiance.jpg',
     desc: "Amanda Ripley and a synthetic named Zula Hendricks go rogue against Weyland-Yutani to investigate a derelict ship loaded with xenomorphs — a tense, character-driven series.",
     detailedDesc: "Brian Wood's Defiance is exemplary franchise comics work — Amanda Ripley is written with the complexity she deserves, and Zula Hendricks is one of the extended universe's best original characters. The synthetic rights subplot adds unexpected thematic depth.",
@@ -359,6 +411,8 @@ export const data = [
   {
     id: 36, type: 'comic', title: 'Alien (Marvel #1)', year: 2021, rating: 7.8,
     author: 'Phillip Kennedy Johnson',
+    cvSearch: 'Alien Marvel 2021',
+    cvId: 137502,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Alien_Marvel_Vol_1.jpg',
     desc: "Marvel's acclaimed relaunch follows a retired Weyland-Yutani operative whose grandson becomes embroiled in a conspiracy involving artificially engineered xenomorphs — a fresh direction that respects the franchise's legacy.",
     detailedDesc: "Phillip Kennedy Johnson's launch arc won over significant franchise skepticism. The grandfather-grandson dynamic gives the series an emotional grounding unusual in the franchise, and the engineered xenomorph subplot raises interesting questions about the species' nature.",
@@ -369,6 +423,8 @@ export const data = [
   {
     id: 37, type: 'comic', title: 'Aliens: Resistance', year: 2019, rating: 7.5,
     author: 'Brian Wood',
+    cvSearch: 'Aliens Resistance',
+    cvId: 110658,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/0/07/Aliens_Resistance.jpg',
     desc: "The direct sequel to Defiance — Amanda Ripley and Zula Hendricks continue their battle against Weyland-Yutani's xenomorph weapons program in a tense, action-driven continuation.",
     detailedDesc: "Resistance is a satisfying if slightly rushed conclusion to the threads left dangling at the end of Defiance. The action is well-executed, the character work maintains Defiance's high standard, and the canonical connections to the Isolation game universe are handled with care.",
@@ -379,6 +435,8 @@ export const data = [
   {
     id: 38, type: 'comic', title: 'Aliens: Genocide', year: 1991, rating: 7.6,
     author: 'John Arcudi',
+    cvSearch: 'Aliens Genocide',
+    cvId: 18223,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/6/69/Aliens_Genocide.jpg',
     desc: "Humanity discovers that two distinct xenomorph hive strains have gone to war with each other — and launches a desperate mission to harvest the warring queen's royal jelly, a potential cure for a drug crisis.",
     detailedDesc: "Genocide is one of the more inventive high concepts in franchise comics — the idea that xenomorphs could have intra-species conflict, and that humans would try to exploit it, is brilliant. John Arcudi's script handles the idea well.",
@@ -389,6 +447,8 @@ export const data = [
   {
     id: 39, type: 'comic', title: "Aliens: Newt's Tale", year: 1992, rating: 7.8,
     author: 'Mike Richardson',
+    cvSearch: "Aliens Newt's Tale",
+    cvId: 18425,
     imageUrl: "https://upload.wikimedia.org/wikipedia/en/b/b4/Aliens_Newt%27s_Tale.jpg",
     desc: "The complete story of Aliens retold from Newt's perspective — from the colony's first encounter with the xenomorphs through the fall of Hadley's Hope, her survival in the air ducts, and her rescue.",
     detailedDesc: "Newt's Tale transforms what was largely background tragedy in the film into a devastatingly intimate survival story. Seeing Newt's parents discover the derelict ship and watching the colony fall through child's eyes is genuinely heartbreaking.",
@@ -399,6 +459,8 @@ export const data = [
   {
     id: 40, type: 'comic', title: 'Aliens: Colonial Marines', year: 1993, rating: 7.1,
     author: 'Dan Abnett & Ian Edginton',
+    cvSearch: 'Aliens Colonial Marines',
+    cvId: 18222,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/c/c9/Aliens_Colonial_Marines_comic.jpg',
     desc: "Dan Abnett and Ian Edginton's seminal comics run follows a squad of Colonial Marines across increasingly desperate xenomorph containment missions in the outer colonies.",
     detailedDesc: "Abnett and Edginton bring their considerable craft for ensemble military fiction to the Alien universe with impressive results. The marines feel like real people rather than archetypes, and the escalating desperation as the mission goes wrong is handled with skill.",
@@ -409,6 +471,8 @@ export const data = [
   {
     id: 41, type: 'comic', title: 'Aliens: Havoc', year: 1997, rating: 7.3,
     author: 'Mark Schultz',
+    cvSearch: 'Aliens Havoc',
+    cvId: 18430,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/d/da/Aliens_Havoc.jpg',
     desc: "A renegade platoon of marines deployed into a xenomorph-overrun city with no support and dwindling supplies — a gritty, kinetic survival story that treats urban xenomorph infestation with unrelenting intensity.",
     detailedDesc: "Havoc is a stripped-down survival story — no corporate conspiracies, no canon complications, just marines trying to survive an impossible situation in an infested city. Mark Schultz's art has a gritty, industrial quality that suits the material perfectly.",
@@ -419,6 +483,8 @@ export const data = [
   {
     id: 42, type: 'comic', title: 'Aliens: Aftermath', year: 2021, rating: 7.4,
     author: 'David Lapham',
+    cvSearch: 'Aliens Aftermath',
+    cvId: 138920,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/f/fb/Aliens_Aftermath_comic.jpg',
     desc: "30 years after the events on LV-426, a team returns to examine what the xenomorphs left behind — and discovers the aftermath of that catastrophe in ways no one anticipated.",
     detailedDesc: "Lapham's Aftermath is a quiet, contemplative standalone that uses the passage of time and the weight of history to create something genuinely melancholy. The idea of returning to LV-426 decades later — examining wreckage, traces, and consequences — gives the xenomorph threat a geological weight.",
@@ -429,6 +495,8 @@ export const data = [
   {
     id: 43, type: 'comic', title: 'Alien: Bloodlines', year: 2022, rating: 7.6,
     author: 'Phillip Kennedy Johnson',
+    cvSearch: 'Alien Bloodlines',
+    cvId: 143211,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/c/c8/Alien_Bloodlines.jpg',
     desc: "The continuation of Marvel's flagship Alien series deepens its conspiracy thriller roots — a family torn apart by xenomorph trauma confronts new engineered variants and an escalating existential threat.",
     detailedDesc: "Bloodlines successfully expands on the foundations built in Johnson's opening arc, deepening the family dynamics and raising the stakes of the engineered xenomorph conspiracy. The new creature variants introduced here are visually striking.",
@@ -439,6 +507,8 @@ export const data = [
   {
     id: 44, type: 'comic', title: 'Aliens: Echoes', year: 2024, rating: 7.7,
     author: 'Julius Ohta',
+    cvSearch: 'Aliens Echoes',
+    cvId: 152340,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/9/95/Aliens_Echoes.jpg',
     desc: "A survey crew arrives at an abandoned colony to document what happened — and discovers a living nightmare still very much in progress. A confidently crafted standalone from Marvel's modern Alien era.",
     detailedDesc: "Julius Ohta's Echoes is a lean, efficient, beautifully crafted standalone horror comic. The abandoned colony premise allows for environmental storytelling — the horror of what happened is communicated through what remains.",
@@ -449,6 +519,8 @@ export const data = [
   {
     id: 45, type: 'comic', title: 'Aliens vs. Predator: Three World War', year: 2010, rating: 7.5,
     author: 'Randy Stradley',
+    cvSearch: 'Aliens vs Predator Three World War',
+    cvId: 56530,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/7/7d/AvP_Three_World_War.jpg',
     desc: "An epic crossover in which a Predator subspecies has turned xenomorphs into weapons of war — and humanity, the standard Predator clans, and the xenomorphs are caught in a three-way conflict with civilizational stakes.",
     detailedDesc: "Three World War is the most ambitious AvP story since the original comic, bringing back beloved characters and expanding the three-species mythology in satisfying ways. The concept of Predator subspecies using xenomorphs as directed weapons is inventive.",
@@ -459,6 +531,8 @@ export const data = [
   {
     id: 46, type: 'comic', title: 'Alien: The Illustrated Story', year: 1979, rating: 8.0,
     author: 'Archie Goodwin & Walt Simonson',
+    cvSearch: 'Alien The Illustrated Story',
+    cvId: 18218,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/6/6f/Alien_Illustrated_Story.jpg',
     desc: "The original 1979 comic adaptation of Ridley Scott's film — Archie Goodwin's script and Walt Simonson's raw, kinetic artwork capture the Giger-esque horror with astonishing fidelity for its era.",
     detailedDesc: "Produced in the same year as the film, The Illustrated Story has extraordinary historical significance — and beyond that, genuine artistic merit. Walt Simonson's art, while necessarily different from Giger's designs, captures the biomechanical horror through his own visual language.",
@@ -467,8 +541,10 @@ export const data = [
     tags: ['Adaptation', 'Classic', '1979']
   },
   {
-    id: 47, type: 'comic', title: "Aliens: Genocide", year: 1991, rating: 7.6,
+    id: 47, type: 'comic', title: 'Aliens: Genocide', year: 1991, rating: 7.6,
     author: 'John Arcudi',
+    cvSearch: 'Aliens Genocide',
+    cvId: 18223,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/6/69/Aliens_Genocide.jpg',
     desc: "Humanity discovers that two distinct xenomorph hive strains have gone to war with each other — and launches a desperate mission to harvest the warring queen's royal jelly, a potential cure for a drug crisis.",
     detailedDesc: "Genocide is one of the more inventive high concepts in franchise comics. The idea that xenomorphs could have intra-species conflict, and that humans would try to exploit it, is brilliant. John Arcudi's script handles the idea well.",
