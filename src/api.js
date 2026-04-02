@@ -2,7 +2,7 @@
 // api.js — All external API integrations
 //
 //  TMDB          → Movie posters    (works on real domain, not localhost)
-//  Open Library  → Book covers      (no key needed, works everywhere)
+//  Open Library  → Book covers      (via Netlify serverless proxy)
 //  Comic Vine    → Comic covers     (via Netlify serverless proxy)
 // =============================================================
 
@@ -36,11 +36,6 @@ export const fetchMovie = async (title, year) => {
   }
 };
 
-/**
- * Batch-fetches TMDB posters for all movie entries.
- * Returns a map of { id → posterUrl }.
- * Falls back gracefully — a failed fetch just keeps the existing imageUrl.
- */
 export const fetchAllMoviePosters = async (items) => {
   const movies = items.filter((d) => d.type === "movie");
   const results = await Promise.allSettled(
@@ -58,12 +53,44 @@ export const fetchAllMoviePosters = async (items) => {
 
 // -------------------------------------------------------------
 // 2. Open Library — Books
-//    No API key needed. Cover IDs are stored in data.js as
-//    imageUrl already, so no fetch is needed at runtime.
-//    This helper is here if you ever need to look up by ISBN.
+//    Routed through our Netlify serverless function at
+//    /.netlify/functions/bookcover to avoid rate limiting.
+//    Searches by title and returns the first result with a cover.
 // -------------------------------------------------------------
-export const getBookCoverUrl = (isbn, size = "L") =>
-  `https://covers.openlibrary.org/b/isbn/${isbn}-${size}.jpg`;
+const bookCache = {};
+
+export const fetchBookCover = async (title) => {
+  if (bookCache[title] !== undefined) return bookCache[title];
+  try {
+    const res  = await fetch(
+      `/.netlify/functions/bookcover?title=${encodeURIComponent(title)}`
+    );
+    const json = await res.json();
+    const cover = json.cover ?? null;
+    bookCache[title] = cover;
+    return cover;
+  } catch (err) {
+    console.error("[BookCover] fetch error:", err);
+    bookCache[title] = null;
+    return null;
+  }
+};
+
+export const fetchAllBookCovers = async (items) => {
+  // Only fetch covers for books that don't already have a hardcoded imageUrl
+  const books = items.filter((d) => d.type === "book" && !d.imageUrl);
+  const results = await Promise.allSettled(
+    books.map((d) => fetchBookCover(d.title))
+  );
+  const map = {};
+  books.forEach((d, i) => {
+    const val = results[i];
+    if (val.status === "fulfilled" && val.value) {
+      map[d.id] = val.value;
+    }
+  });
+  return map;
+};
 
 // -------------------------------------------------------------
 // 3. Comic Vine — Comics
@@ -72,10 +99,6 @@ export const getBookCoverUrl = (isbn, size = "L") =>
 // -------------------------------------------------------------
 const cvCache = {};
 
-/**
- * Fetches a comic cover via the Netlify proxy function.
- * @param {number} cvId - Comic Vine volume ID (stored in data.js as cvId)
- */
 export const fetchComicCover = async (cvId) => {
   if (cvCache[cvId] !== undefined) return cvCache[cvId];
   try {
@@ -91,10 +114,6 @@ export const fetchComicCover = async (cvId) => {
   }
 };
 
-/**
- * Batch-fetches Comic Vine covers for all comic entries that have a cvId.
- * Returns a map of { id → coverUrl }.
- */
 export const fetchAllComicCovers = async (items) => {
   const comics = items.filter((d) => d.type === "comic" && d.cvId);
   const results = await Promise.allSettled(

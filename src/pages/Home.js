@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { data } from '../data';
-import { fetchAllMoviePosters, fetchAllComicCovers } from '../api';
+import { fetchAllMoviePosters, fetchAllComicCovers, fetchAllBookCovers } from '../api';
 import { useFavorites } from '../hooks/useFavorites';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
@@ -21,18 +21,25 @@ export default function Home() {
 
   useEffect(() => {
     let cancelled = false;
+
     Promise.allSettled([
       fetchAllMoviePosters(data),
       fetchAllComicCovers(data),
-    ]).then(([movieResult, comicResult]) => {
+      fetchAllBookCovers(data),
+    ]).then(([movieResult, comicResult, bookResult]) => {
       if (cancelled) return;
       const movieMap = movieResult.status === 'fulfilled' ? movieResult.value : {};
       const comicMap = comicResult.status === 'fulfilled' ? comicResult.value : {};
-      const combined = { ...movieMap, ...comicMap };
+      const bookMap  = bookResult.status  === 'fulfilled' ? bookResult.value  : {};
+      const combined = { ...movieMap, ...comicMap, ...bookMap };
       if (Object.keys(combined).length > 0) {
-        setEnriched(data.map((d) => ({ ...d, imageUrl: combined[d.id] ?? d.imageUrl })));
+        setEnriched(data.map((d) => ({
+          ...d,
+          imageUrl: combined[d.id] ?? d.imageUrl,
+        })));
       }
     });
+
     return () => { cancelled = true; };
   }, []);
 
