@@ -76,17 +76,44 @@ const cvCache = {};
  * Fetches a comic cover via the Netlify proxy function.
  * @param {number} cvId - Comic Vine volume ID (stored in data.js as cvId)
  */
-export const fetchComicCover = async (cvId) => {
-  if (cvCache[cvId] !== undefined) return cvCache[cvId];
+const normalizeText = (s = '') =>
+  s
+    .toString()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
+const isTitleMatch = (expected = '', actual = '') => {
+  const normExpected = normalizeText(expected);
+  const normActual = normalizeText(actual);
+  if (!normExpected || !normActual) return false;
+  const expectedTokens = normExpected.split(' ').filter(Boolean);
+  const hitTokens = expectedTokens.slice(0, 4);
+  return hitTokens.every((token) => normActual.includes(token));
+};
+
+export const fetchComicCover = async (cvId, expectedTitle) => {
+  const cacheKey = `${cvId}::${normalizeText(expectedTitle)}`;
+  if (cvCache[cacheKey] !== undefined) return cvCache[cacheKey];
   try {
-    const res  = await fetch(`/.netlify/functions/comicvine?cvId=${cvId}`);
+    const res = await fetch(`/.netlify/functions/comicvine?cvId=${cvId}`);
     const json = await res.json();
     const cover = json.cover ?? null;
-    cvCache[cvId] = cover;
+    const returnedName = json.name || json.title || '';
+
+    if (cover && expectedTitle && !isTitleMatch(expectedTitle, returnedName)) {
+      console.warn(
+        `[ComicVine] title mismatch for cvId=${cvId}: expected='${expectedTitle}', actual='${returnedName}'`
+      );
+      cvCache[cacheKey] = null;
+      return null;
+    }
+
+    cvCache[cacheKey] = cover;
     return cover;
   } catch (err) {
     console.error("[ComicVine] fetch error:", err);
-    cvCache[cvId] = null;
+    cvCache[cacheKey] = null;
     return null;
   }
 };
@@ -98,7 +125,7 @@ export const fetchComicCover = async (cvId) => {
 export const fetchAllComicCovers = async (items) => {
   const comics = items.filter((d) => d.type === "comic" && d.cvId);
   const results = await Promise.allSettled(
-    comics.map((d) => fetchComicCover(d.cvId))
+    comics.map((d) => fetchComicCover(d.cvId, d.title))
   );
   const map = {};
   comics.forEach((d, i) => {
