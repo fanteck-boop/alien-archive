@@ -111,7 +111,7 @@ export const data = [
     id: 10, type: 'game', title: 'Alien Trilogy', year: 1996, rating: 7.2,
     developer: 'Probe Entertainment',
     rawgSearch: 'Alien Trilogy',
-    imageUrl: 'https://static.wikia.nocookie.net/alienanthology/images/b/b2/Alien_Trilogy.jpg/revision/latest/scale-to-width-down/300?cb=20190501162059',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: "A first-person shooter adaptation of all three original Alien films — explore levels drawn from each movie while battling xenomorphs with a satisfying arsenal of period-authentic weapons.",
     detailedDesc: "Alien Trilogy was a landmark for the franchise in gaming, offering the first comprehensive tour through the world of all three films. Its atmosphere was remarkable for its era and its sound design — drawing directly from the films' audio libraries — gave it an authenticity later games would strive for.",
     pros: ["Comprehensive tour through all three original film environments", "Authentic sound design draws directly from the films", "Solid gunplay for its era with a well-chosen weapon selection", "A genuine piece of franchise gaming history"],
@@ -577,7 +577,7 @@ export const data = [
   {
     id: 50, type: 'game', title: 'Aliens: Dark Descent', year: 2023, rating: 7.5,
     developer: 'Tindalos Interactive',
-    imageUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1700740/header.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: 'A real-time squad tactics game set on a moon overrun by xenomorphs. Command a team of Colonial Marines in tense, permadeath-driven missions against overwhelming odds.',
     detailedDesc: "Dark Descent is a confident and inventive entry in the franchise — a real-time tactics game that channels the tension of the films through strategic squad management rather than direct action. The permadeath system gives every decision genuine weight, and the xenomorph behavior is authentically terrifying.",
     pros: ['Real-time tactics gameplay is inventive and well-executed', 'Permadeath system makes every encounter genuinely tense', 'Authentic franchise aesthetic — sound, visuals and lore are all faithful', 'Campaign length and variety are impressive for the genre'],
@@ -597,7 +597,7 @@ export const data = [
   {
     id: 52, type: 'game', title: 'Alien: Blackout', year: 2019, rating: 6.2,
     developer: 'D3 Go!',
-    imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1tq9.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: 'A mobile strategy-horror game set between Alien: Isolation and Aliens — Amanda Ripley must guide a crew through a crippled space station using only limited camera feeds and station systems.',
     detailedDesc: "Alien: Blackout is a thoughtful mobile title that distills the tension of Isolation into a purely strategic format. Managing power, cameras, and crew movement with a single xenomorph stalking the corridors creates genuine dread — a rare achievement for mobile gaming.",
     pros: ['Clever adaptation of Isolation\'s tension into a mobile format', 'Amanda Ripley\'s continued story adds meaningful franchise continuity', 'Power management mechanics create authentic resource anxiety', 'Surprisingly deep for a mobile title'],
@@ -609,7 +609,7 @@ export const data = [
   {
     id: 53, type: 'book', title: 'Alien: Sea of Sorrows', year: 2014, rating: 7.4,
     author: 'James A. Moore',
-    imageUrl: 'https://covers.openlibrary.org/b/id/7892519-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: 'A descendant of Ellen Ripley discovers a vast underground xenomorph nest beneath a colony world — and Weyland-Yutani will sacrifice anything to weaponize what lies beneath.',
     detailedDesc: "The second entry in the original trilogy of Titan novels (following Out of the Shadows), Sea of Sorrows is a propulsive, action-heavy thriller. Moore's pacing is relentless and the underground colony setting creates effective claustrophobia.",
     pros: ['Relentless pacing keeps the narrative momentum high throughout', 'The underground colony setting is effectively claustrophobic', 'The Ripley lineage concept adds meaningful franchise continuity', 'Strong action sequences throughout'],
@@ -619,7 +619,7 @@ export const data = [
   {
     id: 54, type: 'book', title: 'Alien: Echo', year: 2019, rating: 7.1,
     author: 'Mira Grant',
-    imageUrl: 'https://covers.openlibrary.org/b/id/9257847-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: 'A young adult novel following teenage twins on a colony world who discover a xenomorph outbreak — a fresh perspective that brings the franchise\'s horror to a new generation of readers.',
     detailedDesc: "Mira Grant's YA entry in the franchise is a confident and thoughtful novel that uses the xenomorph threat to explore themes of identity, disability, and sisterhood. The twin protagonists are well-drawn and the horror is handled with intelligence.",
     pros: ['A genuinely fresh perspective on franchise horror from a YA lens', 'Twin protagonists are well-characterized and emotionally engaging', 'Disability representation is handled with care and authenticity', 'Mira Grant\'s genre craft is evident throughout'],
@@ -629,7 +629,7 @@ export const data = [
   {
     id: 55, type: 'book', title: 'Aliens: Bishop', year: 2023, rating: 7.6,
     author: 'T. R. Napper',
-    imageUrl: 'https://covers.openlibrary.org/b/id/13558566-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: 'The first novel to centre entirely on Bishop — the synthetic survivor of Aliens and Alien 3 — exploring his existence, his encounters with xenomorphs, and what it means to be artificial in a hostile universe.',
     detailedDesc: "T. R. Napper's novel gives Bishop the full character study he has always deserved. The exploration of synthetic consciousness through the lens of someone who has survived two xenomorph encounters is genuinely moving, and Napper's prose is among the finest in the franchise's novel line.",
     pros: ['Bishop finally receives the character depth his screen appearances promised', 'Napper\'s prose is literary quality — genuinely excellent franchise fiction', 'The philosophical exploration of synthetic consciousness is thoughtful and original', 'Faithfully draws on both Aliens and Alien 3 while adding meaningfully to both'],
@@ -639,7 +639,7 @@ export const data = [
   {
     id: 56, type: 'book', title: 'Alien: Enemy of My Enemy', year: 2023, rating: 7.2,
     author: 'Mary SanGiovanni',
-    imageUrl: 'https://covers.openlibrary.org/b/id/13558567-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: 'When a remote research station becomes overrun, a marine and a Predator must form an uneasy alliance to survive — an Alien vs. Predator novel that plays the crossover concept with unexpected seriousness.',
     detailedDesc: "Mary SanGiovanni treats the AvP crossover with the tonal seriousness it rarely receives, using the uneasy human-Predator alliance as a genuine exploration of honour, survival, and what constitutes personhood.",
     pros: ['Takes the AvP crossover more seriously than either film managed', 'The human-Predator alliance dynamic is handled with intelligence', 'SanGiovanni\'s creature horror writing is visceral and effective', 'A lean, propulsive thriller that never outstays its welcome'],
@@ -649,7 +649,7 @@ export const data = [
   {
     id: 57, type: 'book', title: 'Alien (Alan Dean Foster Novelization)', year: 1979, rating: 7.3,
     author: 'Alan Dean Foster',
-    imageUrl: 'https://covers.openlibrary.org/b/id/8739161-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: "Alan Dean Foster's novelization of Ridley Scott's original film — published simultaneously with the movie and containing additional scenes and character detail not present in the theatrical cut.",
     detailedDesc: "Foster's novelization is historically significant as one of the first major franchise expansions — published before the film was widely seen. Additional scenes cut from the final film are preserved here, and Foster's prose captures the industrial dread of the Nostromo with skill.",
     pros: ['Contains scenes cut from the final film — essential for completionists', 'Foster\'s prose captures the film\'s dread with surprising fidelity', 'Historically significant as one of the earliest franchise expansions', 'Character interiority adds depth absent from the minimalist film'],
@@ -659,7 +659,7 @@ export const data = [
   {
     id: 58, type: 'book', title: 'Aliens (Alan Dean Foster Novelization)', year: 1986, rating: 7.1,
     author: 'Alan Dean Foster',
-    imageUrl: 'https://covers.openlibrary.org/b/id/8739162-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: "Foster's adaptation of James Cameron's sequel — capturing the action-war epic on the page with additional character moments that flesh out the Colonial Marines beyond the film's already strong ensemble.",
     detailedDesc: "Foster's Aliens novelization is among the best in his franchise work — the marines receive additional backstory that enriches their screen counterparts, and the pacing of Cameron's kinetic action translates surprisingly well to prose.",
     pros: ['Marines receive additional backstory that enriches the film\'s ensemble', 'Cameron\'s kinetic action translates well to Foster\'s efficient prose', 'Ripley\'s maternal bond with Newt is given additional interiority', 'A solid companion to one of cinema\'s great sequels'],
@@ -669,7 +669,7 @@ export const data = [
   {
     id: 59, type: 'book', title: 'Alien 3 (Alan Dean Foster Novelization)', year: 1992, rating: 6.9,
     author: 'Alan Dean Foster',
-    imageUrl: 'https://covers.openlibrary.org/b/id/348538-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: "Foster's novelization of the troubled third film — uniquely valuable because it adapts a substantially different version of the screenplay, preserving story elements that never made it to screen.",
     detailedDesc: "The Alien 3 novelization is more interesting than most because it adapts an earlier draft of the screenplay with significant differences from the finished film. For fans interested in the film's tortured development history, Foster's version offers a fascinating parallel text.",
     pros: ['Adapts an earlier screenplay draft with significant differences from the film', 'Preserves story elements cut from the theatrical and assembly cuts', 'Historically fascinating document of the film\'s troubled development', 'Foster handles the prison-planet atmosphere with genuine skill'],
@@ -679,7 +679,7 @@ export const data = [
   {
     id: 60, type: 'book', title: 'Prometheus (Novelization)', year: 2012, rating: 6.7,
     author: 'Jon Spaihts & Damon Lindelof (adapted by Foster)',
-    imageUrl: 'https://covers.openlibrary.org/b/id/7888691-M.jpg',
+    imageUrl: 'null, // No suitable cover found — fallback to Wikipedia image in Card.js',
     desc: "Alan Dean Foster's novelization of Prometheus expands the film's philosophical ambitions with additional interiority and scenes that clarify some of the script's more deliberately opaque moments.",
     detailedDesc: "Foster's Prometheus novelization is useful primarily as a companion text for those who found the film's storytelling frustratingly elliptical. Additional scenes and character thoughts clarify motivations that the film deliberately obscured, though not always to the story's benefit.",
     pros: ['Clarifies some of the film\'s more opaque character motivations', 'Additional scenes expand the Engineer mythology meaningfully', 'Foster\'s adaptation captures the film\'s visual grandeur in prose', 'A useful companion for those who wanted more from the film'],
