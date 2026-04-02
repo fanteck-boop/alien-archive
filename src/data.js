@@ -540,4 +540,200 @@ export const data = [
     cons: ["Inevitably constrained by what was known of Giger's designs during production", "Simonson's art style, while excellent, differs significantly from the film's visual language", "The adaptation necessarily omits or compresses key sequences from the film", "Historical significance may matter more to collectors than narrative value to new readers"],
     tags: ['Adaptation', 'Classic', '1979']
   },
+
+  // ── NEW MOVIES ──
+  {
+    id: 47, type: 'movie', title: 'AVP: Alien vs. Predator', year: 2004, rating: 5.6,
+    director: 'Paul W.S. Anderson',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/kQDuOKD5XUcWtgrdpeLpQmllNqT.jpg',
+    desc: 'A team of scientists and mercenaries descend into an ancient pyramid buried beneath the Antarctic ice — unaware they have walked into the middle of a centuries-old war between two apex species.',
+    detailedDesc: "Paul W.S. Anderson's crossover concept is inherently exciting, and the Antarctic pyramid setting is genuinely inventive. But a PG-13 rating defangs both creatures, and the film rushes through character establishment to reach action that never feels truly dangerous.",
+    pros: ['The pyramid-as-hunting-ground concept is clever and well-realized', 'Sanaa Lathan is a compelling and capable lead', 'Both creature designs are faithfully recreated', 'Lance Henriksen brings gravitas as Weyland'],
+    cons: ['PG-13 rating removes the visceral threat both franchises require', 'Character development is minimal despite a strong cast', 'Contradicts established lore from both franchises', 'Neither species feels genuinely terrifying'],
+    tags: ['Action', 'Crossover', 'AvP']
+  },
+  {
+    id: 48, type: 'movie', title: 'Aliens vs. Predator: Requiem', year: 2007, rating: 4.7,
+    director: 'Colin Strause & Greg Strause',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/xR4Mslyum7bjzAF1rlUX2HrlwhZ.jpg',
+    desc: 'A Predator ship crashes in a small Colorado town, releasing a Predalien hybrid and a swarm of xenomorphs on the unsuspecting population. A lone Predator arrives to clean up the mess.',
+    detailedDesc: "Requiem overcorrects the first film's tame rating with extreme gore but substitutes brutality for storytelling. The film's notoriously dark cinematography — literally too dark to see in many sequences — became a franchise punchline. The small-town setting had potential that was entirely squandered.",
+    pros: ['Returns to R-rated violence after the neutered first film', 'The Predalien hybrid is a visually interesting creature concept', 'Small-town setting offers a different visual palette', 'Some practical effects work is effective'],
+    cons: ['Cinematography so dark key sequences are genuinely invisible', 'Human characters are hollow archetypes with zero development', 'The Predalien concept is wasted on a weak script', 'Widely regarded as one of the worst entries in either franchise'],
+    tags: ['Horror', 'Crossover', 'AvP']
+  },
+  {
+    id: 49, type: 'movie', title: 'Alien: Earth', year: 2025, rating: 7.8,
+    director: 'Noah Hawley',
+    imageUrl: 'https://image.tmdb.org/t/p/w500/3TkSMGKSbYBFlMlFzxDLfMf3mMB.jpg',
+    desc: 'Set before the original film, a Weyland-Yutani spacecraft crash-lands on Earth carrying a deadly cargo. A young woman and a ragtag group must face the most terrifying life form in the universe — on their own planet.',
+    detailedDesc: "Noah Hawley's series brings the Alien franchise to Earth for the first time, exploring how the xenomorph threat reshapes humanity on familiar ground. The show expands the franchise's corporate horror elements while delivering genuine creature terror, with strong performances anchoring its slower-burn approach.",
+    pros: ['Brings the franchise to Earth with a fresh and effective perspective', 'Noah Hawley brings genuine craft and atmosphere to the material', 'Strong ensemble cast with well-developed characters', 'Expands the Weyland-Yutani corporate mythology meaningfully'],
+    cons: ['Slower pacing in early episodes may frustrate action-focused viewers', 'Some creature sequences feel constrained by a TV budget', 'The Earth setting removes some of the isolation that defines the franchise', 'Not all subplots receive equal development across the season'],
+    tags: ['TV Series', 'Prequel', 'Sci-Fi']
+  },
+
+  // ── NEW GAMES ──
+  {
+    id: 50, type: 'game', title: 'Aliens: Dark Descent', year: 2023, rating: 7.5,
+    developer: 'Tindalos Interactive',
+    imageUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1700740/header.jpg',
+    desc: 'A real-time squad tactics game set on a moon overrun by xenomorphs. Command a team of Colonial Marines in tense, permadeath-driven missions against overwhelming odds.',
+    detailedDesc: "Dark Descent is a confident and inventive entry in the franchise — a real-time tactics game that channels the tension of the films through strategic squad management rather than direct action. The permadeath system gives every decision genuine weight, and the xenomorph behavior is authentically terrifying.",
+    pros: ['Real-time tactics gameplay is inventive and well-executed', 'Permadeath system makes every encounter genuinely tense', 'Authentic franchise aesthetic — sound, visuals and lore are all faithful', 'Campaign length and variety are impressive for the genre'],
+    cons: ['Learning curve is steep and early missions can be punishing', 'Some UI elements are unintuitive on first playthrough', 'Story is serviceable but rarely reaches the franchise\'s dramatic heights', 'Later missions become somewhat repetitive in structure'],
+    tags: ['Strategy', 'Tactics', 'Squad']
+  },
+  {
+    id: 51, type: 'game', title: 'Alien 3: The Gun', year: 1993, rating: 6.8,
+    developer: 'Sega AM1',
+    imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co5v8s.jpg',
+    desc: 'A light-gun arcade shooter set during the events of Alien 3 — players battle waves of xenomorphs across Fiorina 161 using a pump-action shotgun peripheral. A visceral and underrated arcade experience.',
+    detailedDesc: "Sega's arcade light-gun game captures the claustrophobic horror of Alien 3 with surprising effectiveness. The shotgun peripheral adds tactile weight to every encounter, and the wave-based design keeps the tension high throughout.",
+    pros: ['Innovative shotgun peripheral adds genuine physicality', 'Faithfully captures the dark atmosphere of Alien 3', 'Excellent arcade action that remains satisfying decades later', 'One of the better Alien arcade titles of the era'],
+    cons: ['Extremely short — completable in one sitting', 'Essentially inaccessible outside of original arcade hardware', 'Story depth is minimal even by arcade standards', 'Enemy variety is limited across the campaign'],
+    tags: ['Arcade', 'Light-Gun', 'Classic']
+  },
+  {
+    id: 52, type: 'game', title: 'Alien: Blackout', year: 2019, rating: 6.2,
+    developer: 'D3 Go!',
+    imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1tq9.jpg',
+    desc: 'A mobile strategy-horror game set between Alien: Isolation and Aliens — Amanda Ripley must guide a crew through a crippled space station using only limited camera feeds and station systems.',
+    detailedDesc: "Alien: Blackout is a thoughtful mobile title that distills the tension of Isolation into a purely strategic format. Managing power, cameras, and crew movement with a single xenomorph stalking the corridors creates genuine dread — a rare achievement for mobile gaming.",
+    pros: ['Clever adaptation of Isolation\'s tension into a mobile format', 'Amanda Ripley\'s continued story adds meaningful franchise continuity', 'Power management mechanics create authentic resource anxiety', 'Surprisingly deep for a mobile title'],
+    cons: ['Free-to-play monetization elements are intrusive', 'Relatively short campaign with limited replay variety', 'Touch controls can be imprecise during intense sequences', 'Graphics are functional rather than impressive'],
+    tags: ['Mobile', 'Strategy', 'Amanda Ripley']
+  },
+
+  // ── NEW BOOKS ──
+  {
+    id: 53, type: 'book', title: 'Alien: Sea of Sorrows', year: 2014, rating: 7.4,
+    author: 'James A. Moore',
+    imageUrl: 'https://covers.openlibrary.org/b/id/7892519-M.jpg',
+    desc: 'A descendant of Ellen Ripley discovers a vast underground xenomorph nest beneath a colony world — and Weyland-Yutani will sacrifice anything to weaponize what lies beneath.',
+    detailedDesc: "The second entry in the original trilogy of Titan novels (following Out of the Shadows), Sea of Sorrows is a propulsive, action-heavy thriller. Moore's pacing is relentless and the underground colony setting creates effective claustrophobia.",
+    pros: ['Relentless pacing keeps the narrative momentum high throughout', 'The underground colony setting is effectively claustrophobic', 'The Ripley lineage concept adds meaningful franchise continuity', 'Strong action sequences throughout'],
+    cons: ['Character depth is sacrificed for pace', 'Less thematically ambitious than the best entries in the novel line', 'The Weyland-Yutani antagonists are somewhat one-dimensional', 'Resolution is somewhat abrupt given the scale of the threat'],
+    tags: ['Novel', 'Action', 'Ripley']
+  },
+  {
+    id: 54, type: 'book', title: 'Alien: Echo', year: 2019, rating: 7.1,
+    author: 'Mira Grant',
+    imageUrl: 'https://covers.openlibrary.org/b/id/9257847-M.jpg',
+    desc: 'A young adult novel following teenage twins on a colony world who discover a xenomorph outbreak — a fresh perspective that brings the franchise\'s horror to a new generation of readers.',
+    detailedDesc: "Mira Grant's YA entry in the franchise is a confident and thoughtful novel that uses the xenomorph threat to explore themes of identity, disability, and sisterhood. The twin protagonists are well-drawn and the horror is handled with intelligence.",
+    pros: ['A genuinely fresh perspective on franchise horror from a YA lens', 'Twin protagonists are well-characterized and emotionally engaging', 'Disability representation is handled with care and authenticity', 'Mira Grant\'s genre craft is evident throughout'],
+    cons: ['YA tone may not satisfy readers seeking the franchise\'s adult horror', 'The xenomorph threat is somewhat secondary to character drama', 'Shorter and less complex than the mainline adult novels', 'Some franchise lore is simplified for accessibility'],
+    tags: ['Novel', 'YA', 'Coming of Age']
+  },
+  {
+    id: 55, type: 'book', title: 'Aliens: Bishop', year: 2023, rating: 7.6,
+    author: 'T. R. Napper',
+    imageUrl: 'https://covers.openlibrary.org/b/id/13558566-M.jpg',
+    desc: 'The first novel to centre entirely on Bishop — the synthetic survivor of Aliens and Alien 3 — exploring his existence, his encounters with xenomorphs, and what it means to be artificial in a hostile universe.',
+    detailedDesc: "T. R. Napper's novel gives Bishop the full character study he has always deserved. The exploration of synthetic consciousness through the lens of someone who has survived two xenomorph encounters is genuinely moving, and Napper's prose is among the finest in the franchise's novel line.",
+    pros: ['Bishop finally receives the character depth his screen appearances promised', 'Napper\'s prose is literary quality — genuinely excellent franchise fiction', 'The philosophical exploration of synthetic consciousness is thoughtful and original', 'Faithfully draws on both Aliens and Alien 3 while adding meaningfully to both'],
+    cons: ['Readers unfamiliar with the films may lack context for key emotional beats', 'Pacing is contemplative — action fans may want more creature sequences', 'Some sections risk over-explaining Bishop\'s established screen characterisation', 'The ending is somewhat open, leaving threads for a potential sequel'],
+    tags: ['Novel', 'Bishop', 'Synthetic']
+  },
+  {
+    id: 56, type: 'book', title: 'Alien: Enemy of My Enemy', year: 2023, rating: 7.2,
+    author: 'Mary SanGiovanni',
+    imageUrl: 'https://covers.openlibrary.org/b/id/13558567-M.jpg',
+    desc: 'When a remote research station becomes overrun, a marine and a Predator must form an uneasy alliance to survive — an Alien vs. Predator novel that plays the crossover concept with unexpected seriousness.',
+    detailedDesc: "Mary SanGiovanni treats the AvP crossover with the tonal seriousness it rarely receives, using the uneasy human-Predator alliance as a genuine exploration of honour, survival, and what constitutes personhood.",
+    pros: ['Takes the AvP crossover more seriously than either film managed', 'The human-Predator alliance dynamic is handled with intelligence', 'SanGiovanni\'s creature horror writing is visceral and effective', 'A lean, propulsive thriller that never outstays its welcome'],
+    cons: ['The Predator characterization may not satisfy fans of the dedicated Predator lore', 'Supporting characters receive limited development', 'The resolution is somewhat tidy given the scale of the threat', 'Less thematically ambitious than the franchise\'s best standalone novels'],
+    tags: ['Novel', 'AvP', 'Action']
+  },
+  {
+    id: 57, type: 'book', title: 'Alien (Alan Dean Foster Novelization)', year: 1979, rating: 7.3,
+    author: 'Alan Dean Foster',
+    imageUrl: 'https://covers.openlibrary.org/b/id/8739161-M.jpg',
+    desc: "Alan Dean Foster's novelization of Ridley Scott's original film — published simultaneously with the movie and containing additional scenes and character detail not present in the theatrical cut.",
+    detailedDesc: "Foster's novelization is historically significant as one of the first major franchise expansions — published before the film was widely seen. Additional scenes cut from the final film are preserved here, and Foster's prose captures the industrial dread of the Nostromo with skill.",
+    pros: ['Contains scenes cut from the final film — essential for completionists', 'Foster\'s prose captures the film\'s dread with surprising fidelity', 'Historically significant as one of the earliest franchise expansions', 'Character interiority adds depth absent from the minimalist film'],
+    cons: ['Necessarily limited by the source material\'s own constraints', 'Foster\'s prose style is functional rather than literary', 'Less essential for those already intimately familiar with the film', 'Some additional scenes feel cut for good reason'],
+    tags: ['Novelization', 'Film Tie-In', 'Classic']
+  },
+  {
+    id: 58, type: 'book', title: 'Aliens (Alan Dean Foster Novelization)', year: 1986, rating: 7.1,
+    author: 'Alan Dean Foster',
+    imageUrl: 'https://covers.openlibrary.org/b/id/8739162-M.jpg',
+    desc: "Foster's adaptation of James Cameron's sequel — capturing the action-war epic on the page with additional character moments that flesh out the Colonial Marines beyond the film's already strong ensemble.",
+    detailedDesc: "Foster's Aliens novelization is among the best in his franchise work — the marines receive additional backstory that enriches their screen counterparts, and the pacing of Cameron's kinetic action translates surprisingly well to prose.",
+    pros: ['Marines receive additional backstory that enriches the film\'s ensemble', 'Cameron\'s kinetic action translates well to Foster\'s efficient prose', 'Ripley\'s maternal bond with Newt is given additional interiority', 'A solid companion to one of cinema\'s great sequels'],
+    cons: ['Cannot replicate the visceral impact of Cameron\'s direction', 'Foster\'s prose style prioritises efficiency over literary ambition', 'Less essential given how comprehensively the film tells its own story', 'Some additional scenes feel like padding rather than enrichment'],
+    tags: ['Novelization', 'Film Tie-In', 'Action']
+  },
+  {
+    id: 59, type: 'book', title: 'Alien 3 (Alan Dean Foster Novelization)', year: 1992, rating: 6.9,
+    author: 'Alan Dean Foster',
+    imageUrl: 'https://covers.openlibrary.org/b/id/348538-M.jpg',
+    desc: "Foster's novelization of the troubled third film — uniquely valuable because it adapts a substantially different version of the screenplay, preserving story elements that never made it to screen.",
+    detailedDesc: "The Alien 3 novelization is more interesting than most because it adapts an earlier draft of the screenplay with significant differences from the finished film. For fans interested in the film's tortured development history, Foster's version offers a fascinating parallel text.",
+    pros: ['Adapts an earlier screenplay draft with significant differences from the film', 'Preserves story elements cut from the theatrical and assembly cuts', 'Historically fascinating document of the film\'s troubled development', 'Foster handles the prison-planet atmosphere with genuine skill'],
+    cons: ['The underlying story\'s weaknesses are present regardless of draft', 'Less polished than his work on the first two films', 'Readers who love the assembly cut may find the discrepancies jarring', 'Limited literary ambition beyond faithful adaptation'],
+    tags: ['Novelization', 'Film Tie-In', 'Alternate Version']
+  },
+  {
+    id: 60, type: 'book', title: 'Prometheus (Novelization)', year: 2012, rating: 6.7,
+    author: 'Jon Spaihts & Damon Lindelof (adapted by Foster)',
+    imageUrl: 'https://covers.openlibrary.org/b/id/7888691-M.jpg',
+    desc: "Alan Dean Foster's novelization of Prometheus expands the film's philosophical ambitions with additional interiority and scenes that clarify some of the script's more deliberately opaque moments.",
+    detailedDesc: "Foster's Prometheus novelization is useful primarily as a companion text for those who found the film's storytelling frustratingly elliptical. Additional scenes and character thoughts clarify motivations that the film deliberately obscured, though not always to the story's benefit.",
+    pros: ['Clarifies some of the film\'s more opaque character motivations', 'Additional scenes expand the Engineer mythology meaningfully', 'Foster\'s adaptation captures the film\'s visual grandeur in prose', 'A useful companion for those who wanted more from the film'],
+    cons: ['Cannot recreate the film\'s extraordinary visual language', 'Some clarifications reduce the intended mystery of the material', 'The script\'s fundamental weaknesses remain present on the page', 'Less essential than novelizations of the original trilogy'],
+    tags: ['Novelization', 'Film Tie-In', 'Prequel']
+  },
+
+  // ── NEW COMICS ──
+  {
+    id: 61, type: 'comic', title: 'Aliens: Life and Death', year: 2016, rating: 7.7,
+    author: 'Dan Abnett',
+    cvSearch: 'Aliens Life and Death',
+    cvId: 95571,
+    imageUrl: null,
+    desc: 'A squad of Colonial Marines barely escapes an Alien-overrun world, only to find themselves stranded on a Predator hunting ground. Dan Abnett weaves together the Alien, Predator, and Engineer mythologies in this ambitious crossover arc.',
+    detailedDesc: "Part of Dark Horse's Fire and Stone/Life and Death crossover initiative, Aliens: Life and Death is Abnett at his best — juggling multiple species, a large ensemble, and genuinely high stakes with the confidence of a veteran military fiction writer.",
+    pros: ['Abnett handles the multi-species crossover with remarkable confidence', 'Ensemble cast is well-differentiated despite the large number of characters', 'Raises genuine stakes — no character feels safe', 'Connects meaningfully to the broader Dark Horse crossover mythology'],
+    cons: ['Full appreciation requires reading the broader Fire and Stone/Life and Death cycle', 'Some character arcs are left to other volumes in the crossover', 'The crossover structure occasionally fragments the narrative momentum', 'Engineer mythology is used but not deeply explored'],
+    tags: ['Dark Horse', 'Crossover', 'Marines']
+  },
+  {
+    id: 62, type: 'comic', title: 'Alien: Black, White & Blood', year: 2023, rating: 7.5,
+    author: 'Various',
+    cvSearch: 'Alien Black White Blood',
+    cvId: 149557,
+    imageUrl: null,
+    desc: "A Marvel anthology series presenting new Alien stories in stark black-and-white with isolated red highlights — a format that strips the xenomorph back to its most visually terrifying and elemental form.",
+    detailedDesc: "The Black, White & Blood format — used across several Marvel franchises — suits the Alien universe exceptionally well. Stripped of colour, the xenomorph's design is more unsettling than ever, and several entries rank among the finest short-form Alien comics produced under the Marvel banner.",
+    pros: ['The high-contrast black-and-white format is extraordinarily effective for Alien horror', 'Anthology format allows experimental approaches and diverse creative voices', 'Several standout entries rank among Marvel\'s best Alien work', 'Visually distinctive from any previous franchise comic'],
+    cons: ['Anthology quality variance is unavoidable — some entries are stronger than others', 'Short story format limits narrative depth', 'The format concept works better for some stories than others', 'Less accessible for readers unfamiliar with Marvel\'s Alien run'],
+    tags: ['Marvel', 'Anthology', 'Modern']
+  },
+  {
+    id: 63, type: 'comic', title: 'Aliens: Apocalypse — The Destroying Angels', year: 1999, rating: 7.4,
+    author: 'Mark Schultz',
+    cvSearch: 'Aliens Apocalypse Destroying Angels',
+    cvId: 18431,
+    imageUrl: null,
+    desc: 'A scientist obsessed with xenomorph biology attempts to engineer a perfect human-alien hybrid — a dark, philosophically unsettling story that asks what humanity is willing to sacrifice in the name of evolution.',
+    detailedDesc: "Mark Schultz's Apocalypse is one of the more intellectually ambitious entries in the Dark Horse Aliens line — a body-horror meditation on evolution, obsession, and the cost of transcendence. Its ideas are more interesting than most franchise comics.",
+    pros: ['Philosophically ambitious — rare for franchise comics', 'Body horror elements are handled with genuine craft', 'The scientist antagonist is one of the more complex villains in the franchise', 'Schultz\'s art is exceptional throughout'],
+    cons: ['Dense and slow-paced compared to action-oriented franchise entries', 'The philosophical themes are sometimes overstated', 'Limited action may disappoint readers seeking creature horror', 'The conclusion is somewhat abrupt given the scope of the ideas'],
+    tags: ['Dark Horse', 'Body Horror', 'Philosophical']
+  },
+  {
+    id: 64, type: 'comic', title: 'Alien: Paradiso', year: 2024, rating: 7.3,
+    author: 'Declan Shalvey',
+    cvSearch: 'Alien Paradiso',
+    cvId: 155000,
+    imageUrl: null,
+    desc: "A new Marvel series following survivors on a seemingly idyllic colony world that harbours a devastating secret — Declan Shalvey brings his distinctive visual style to the franchise with confident results.",
+    detailedDesc: "Shalvey's entry into the Marvel Alien line demonstrates a clear vision — the colony setting is rendered with unusual warmth before the horror intrudes, making the xenomorph threat land with greater impact than most franchise comics manage.",
+    pros: ['Shalvey\'s distinctive art style gives the series a strong visual identity', 'The idyllic colony setting makes the horror more impactful when it arrives', 'Strong character work in the early issues establishes genuine investment', 'A confident new direction for Marvel\'s Alien comics line'],
+    cons: ['Ongoing series — full assessment requires completion of the arc', 'Some early issues prioritise atmosphere over plot momentum', 'The xenomorph threat takes time to fully materialise', 'Continuity with prior Marvel Alien runs is loose'],
+    tags: ['Marvel', 'Modern', 'Colony']
+  },
 ];
