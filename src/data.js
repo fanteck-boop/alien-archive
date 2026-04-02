@@ -540,16 +540,4 @@ export const data = [
     cons: ["Inevitably constrained by what was known of Giger's designs during production", "Simonson's art style, while excellent, differs significantly from the film's visual language", "The adaptation necessarily omits or compresses key sequences from the film", "Historical significance may matter more to collectors than narrative value to new readers"],
     tags: ['Adaptation', 'Classic', '1979']
   },
-  {
-    id: 47, type: 'comic', title: 'Aliens: Genocide', year: 1991, rating: 7.6,
-    author: 'John Arcudi',
-    cvSearch: 'Aliens Genocide',
-    cvId: 21237,
-    imageUrl: null,
-    desc: "Humanity discovers that two distinct xenomorph hive strains have gone to war with each other — and launches a desperate mission to harvest the warring queen's royal jelly, a potential cure for a drug crisis.",
-    detailedDesc: "Genocide is one of the more inventive high concepts in franchise comics. The idea that xenomorphs could have intra-species conflict, and that humans would try to exploit it, is brilliant. John Arcudi's script handles the idea well.",
-    pros: ["The hive-war concept is brilliantly inventive", "Royal jelly as drug substitute adds unexpected thematic depth", "John Arcudi's script is confident and well-paced", "Expands the understanding of xenomorph society in meaningful ways"],
-    cons: ["Art is competent but rarely exceptional", "Human characters are thinly drawn compared to the central concept", "Some plot conveniences required to make the conceit function", "Resolution doesn't fully capitalize on the extraordinary premise"],
-    tags: ['Dark Horse', 'War', 'Queen']
-  },
 ];
