@@ -505,18 +505,6 @@ export const data = [
     tags: ['Marvel', 'Sequel', 'Variants']
   },
   {
-    id: 44, type: 'book', title: 'Aliens: Echoes', year: 2024, rating: 7.7,
-    author: 'Julius Ohta',
-    cvSearch: 'Aliens Echoes',
-    cvId: 0, // Not listed on Comic Vine as of mid-2024
-    imageUrl: "https://static.wikia.nocookie.net/avp/images/0/01/Alien_Echo.jpg/revision/latest/scale-to-width-down/1000?cb=20180925083221",
-    desc: "A survey crew arrives at an abandoned colony to document what happened — and discovers a living nightmare still very much in progress. A confidently crafted standalone from Marvel's modern Alien era.",
-    detailedDesc: "Julius Ohta's Echoes is a lean, efficient, beautifully crafted standalone horror comic. The abandoned colony premise allows for environmental storytelling — the horror of what happened is communicated through what remains.",
-    pros: ["Lean, efficient storytelling — not a page wasted across the run", "The environmental horror of the abandoned colony is used with intelligence", "Xenomorph sequences are inventively staged and genuinely tense", "A confident standalone that demonstrates Marvel's growing command of the franchise"],
-    cons: ["The premise is not entirely new to franchise fiction", "Character development is limited by the story's focused, propulsive structure", "The mystery of the colony's fate is resolved somewhat faster than optimal tension would allow", "Some readers may want more ambition than the efficiently executed premise provides"],
-    tags: ['Marvel', 'Modern', 'Survey']
-  },
-  {
     id: 45, type: 'comic', title: 'Aliens vs. Predator: Three World War', year: 2010, rating: 7.5,
     author: 'Randy Stradley',
     cvSearch: 'Aliens vs Predator Three World War',
@@ -609,7 +597,7 @@ export const data = [
   {
     id: 53, type: 'book', title: 'Alien: Sea of Sorrows', year: 2014, rating: 7.4,
     author: 'James A. Moore',
-    imageUrl: null,
+    imageUrl: 'https://static.wikia.nocookie.net/avp/images/f/f8/Sea_of_Sorrows_Cover.jpg/revision/latest?cb=20141224100849',
     desc: 'A descendant of Ellen Ripley discovers a vast underground xenomorph nest beneath a colony world — and Weyland-Yutani will sacrifice anything to weaponize what lies beneath.',
     detailedDesc: "The second entry in the original trilogy of Titan novels (following Out of the Shadows), Sea of Sorrows is a propulsive, action-heavy thriller. Moore's pacing is relentless and the underground colony setting creates effective claustrophobia.",
     pros: ['Relentless pacing keeps the narrative momentum high throughout', 'The underground colony setting is effectively claustrophobic', 'The Ripley lineage concept adds meaningful franchise continuity', 'Strong action sequences throughout'],
@@ -619,7 +607,7 @@ export const data = [
   {
     id: 54, type: 'book', title: 'Alien: Echo', year: 2019, rating: 7.1,
     author: 'Mira Grant',
-    imageUrl: null,
+    imageUrl: "https://static.wikia.nocookie.net/avp/images/0/01/Alien_Echo.jpg/revision/latest/scale-to-width-down/1000?cb=20180925083221",
     desc: 'A young adult novel following teenage twins on a colony world who discover a xenomorph outbreak — a fresh perspective that brings the franchise\'s horror to a new generation of readers.',
     detailedDesc: "Mira Grant's YA entry in the franchise is a confident and thoughtful novel that uses the xenomorph threat to explore themes of identity, disability, and sisterhood. The twin protagonists are well-drawn and the horror is handled with intelligence.",
     pros: ['A genuinely fresh perspective on franchise horror from a YA lens', 'Twin protagonists are well-characterized and emotionally engaging', 'Disability representation is handled with care and authenticity', 'Mira Grant\'s genre craft is evident throughout'],
@@ -649,7 +637,7 @@ export const data = [
   {
     id: 57, type: 'book', title: 'Alien (Alan Dean Foster Novelization)', year: 1979, rating: 7.3,
     author: 'Alan Dean Foster',
-    imageUrl: "https://imgcdn.saxo.com/_9781783290154.jpg",
+    imageUrl: "https://static.wikia.nocookie.net/avp/images/c/c3/A1N.jpg/revision/latest?cb=20140226093747",
     desc: "Alan Dean Foster's novelization of Ridley Scott's original film — published simultaneously with the movie and containing additional scenes and character detail not present in the theatrical cut.",
     detailedDesc: "Foster's novelization is historically significant as one of the first major franchise expansions — published before the film was widely seen. Additional scenes cut from the final film are preserved here, and Foster's prose captures the industrial dread of the Nostromo with skill.",
     pros: ['Contains scenes cut from the final film — essential for completionists', 'Foster\'s prose captures the film\'s dread with surprising fidelity', 'Historically significant as one of the earliest franchise expansions', 'Character interiority adds depth absent from the minimalist film'],
@@ -659,7 +647,7 @@ export const data = [
   {
     id: 58, type: 'book', title: 'Aliens (Alan Dean Foster Novelization)', year: 1986, rating: 7.1,
     author: 'Alan Dean Foster',
-    imageUrl: "https://imgcdn.saxo.com/_9781783290178.jpg",
+    imageUrl: "https://static.wikia.nocookie.net/avp/images/2/2f/A2N.jpg/revision/latest?cb=20140226093755",
     desc: "Foster's adaptation of James Cameron's sequel — capturing the action-war epic on the page with additional character moments that flesh out the Colonial Marines beyond the film's already strong ensemble.",
     detailedDesc: "Foster's Aliens novelization is among the best in his franchise work — the marines receive additional backstory that enriches their screen counterparts, and the pacing of Cameron's kinetic action translates surprisingly well to prose.",
     pros: ['Marines receive additional backstory that enriches the film\'s ensemble', 'Cameron\'s kinetic action translates well to Foster\'s efficient prose', 'Ripley\'s maternal bond with Newt is given additional interiority', 'A solid companion to one of cinema\'s great sequels'],
@@ -669,7 +657,7 @@ export const data = [
   {
     id: 59, type: 'book', title: 'Alien 3 (Alan Dean Foster Novelization)', year: 1992, rating: 6.9,
     author: 'Alan Dean Foster',
-    imageUrl: "https://imgcdn.saxo.com/_9781783290192.jpg",
+    imageUrl: "https://static.wikia.nocookie.net/avp/images/4/46/A3N.jpg/revision/latest?cb=20140226093801",
     desc: "Foster's novelization of the troubled third film — uniquely valuable because it adapts a substantially different version of the screenplay, preserving story elements that never made it to screen.",
     detailedDesc: "The Alien 3 novelization is more interesting than most because it adapts an earlier draft of the screenplay with significant differences from the finished film. For fans interested in the film's tortured development history, Foster's version offers a fascinating parallel text.",
     pros: ['Adapts an earlier screenplay draft with significant differences from the film', 'Preserves story elements cut from the theatrical and assembly cuts', 'Historically fascinating document of the film\'s troubled development', 'Foster handles the prison-planet atmosphere with genuine skill'],
