@@ -169,3 +169,72 @@
   .prosCons { grid-template-columns: 1fr; }
   .contentSide { padding: 18px 16px; }
 }
+
+/* ── New styles for live API data ── */
+
+.tagline {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--acid-dim);
+  letter-spacing: 1px;
+  font-style: italic;
+  margin-bottom: 14px;
+  opacity: 0.8;
+}
+
+/* Live API score badge — sits to the right of the star row */
+.apiScore {
+  margin-left: auto;
+  text-align: right;
+  border-left: 1px solid var(--border);
+  padding-left: 14px;
+}
+
+.apiScoreVal {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--blue);
+}
+
+.apiScoreSub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 3px;
+  max-width: 120px;
+  line-height: 1.4;
+}
+
+/* Skeleton loading shimmer */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonLine {
+  height: 13px;
+  background: linear-gradient(90deg, var(--surface2) 25%, var(--border2) 50%, var(--surface2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 2px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Source attribution tag */
+.sourceTag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  opacity: 0.4;
+  margin-top: -10px;
+  margin-bottom: 16px;
+}

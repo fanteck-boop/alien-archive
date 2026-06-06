@@ -12,7 +12,11 @@ function getRatingColor(r) {
 
 const FALLBACK_EMOJI = { movie: '🎬', game: '🎮', book: '📚', comic: '📖' };
 
-export default function Card({ item, onClick, animDelay, isFavorite, onToggleFavorite }) {
+export default function Card({ item, liveRating, onClick, animDelay, isFavorite, onToggleFavorite }) {
+  // Books and comics have no score API — only show live rating for movies/games
+  const displayRating = liveRating ?? (['book', 'comic'].includes(item.type) ? null : item.rating);
+  const ratingColor = getRatingColor(displayRating);
+
   return (
     <div
       className={`${styles.card} ${styles[item.type]}`}
@@ -44,9 +48,11 @@ export default function Card({ item, onClick, animDelay, isFavorite, onToggleFav
         )}
         <div className={styles.posterOverlay} />
         <div className={styles.typeBadge}>{TYPE_LABELS[item.type]}</div>
-        <div className={styles.ratingBadge} style={{ color: getRatingColor(item.rating) }}>
-          {item.rating}
-        </div>
+        {displayRating && (
+          <div className={styles.ratingBadge} style={{ color: ratingColor }}>
+            {displayRating}
+          </div>
+        )}
         <div className={styles.favWrap}>
           <FavoriteButton
             isFavorite={isFavorite}

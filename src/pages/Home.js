@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { data } from '../data';
-import { fetchAllMoviePosters, fetchAllComicCovers, fetchAllBookCovers } from '../api';
+import { fetchAllMoviePosters, fetchAllComicCovers, fetchAllBookCovers, fetchAllLiveRatings } from '../api';
 import { useFavorites } from '../hooks/useFavorites';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
@@ -16,12 +16,13 @@ export default function Home() {
   const [selectedId, setSelectedId] = useState(null);
   const [showFavOnly, setShowFavOnly] = useState(false);
   const [enriched, setEnriched] = useState(data);
+  const [liveRatings, setLiveRatings] = useState({});
 
   const { favorites, toggle: toggleFavorite } = useFavorites();
 
+  // Fetch covers
   useEffect(() => {
     let cancelled = false;
-
     Promise.allSettled([
       fetchAllMoviePosters(data),
       fetchAllComicCovers(data),
@@ -39,7 +40,15 @@ export default function Home() {
         })));
       }
     });
+    return () => { cancelled = true; };
+  }, []);
 
+  // Fetch live ratings progressively in background
+  useEffect(() => {
+    let cancelled = false;
+    fetchAllLiveRatings(data, (partial) => {
+      if (!cancelled) setLiveRatings({ ...partial });
+    });
     return () => { cancelled = true; };
   }, []);
 
@@ -55,17 +64,17 @@ export default function Home() {
       items = items.filter(
         (d) =>
           d.title.toLowerCase().includes(q) ||
-          d.desc.toLowerCase().includes(q) ||
+          d.desc?.toLowerCase().includes(q) ||
           (d.tags || []).some((t) => t.toLowerCase().includes(q))
       );
     }
     if (activeSort === 'year-asc') items.sort((a, b) => a.year - b.year);
     else if (activeSort === 'year-desc') items.sort((a, b) => b.year - a.year);
-    else if (activeSort === 'rating-desc') items.sort((a, b) => b.rating - a.rating);
-    else if (activeSort === 'rating-asc') items.sort((a, b) => a.rating - b.rating);
+    else if (activeSort === 'rating-desc') items.sort((a, b) => (liveRatings[b.id] ?? b.rating) - (liveRatings[a.id] ?? a.rating));
+    else if (activeSort === 'rating-asc') items.sort((a, b) => (liveRatings[a.id] ?? a.rating) - (liveRatings[b.id] ?? b.rating));
     else if (activeSort === 'title-asc') items.sort((a, b) => a.title.localeCompare(b.title));
     return items;
-  }, [enriched, activeType, activeSort, search, showFavOnly, favorites]);
+  }, [enriched, activeType, activeSort, search, showFavOnly, favorites, liveRatings]);
 
   const counts = useMemo(() => ({
     total: enriched.length,
@@ -91,7 +100,7 @@ export default function Home() {
         <div className={styles.headerGrid} />
         <div className={styles.headerContent}>
           <div className={styles.eyebrow}>&gt; Weyland-Yutani Corp — Classified Archive // Est. 1979</div>
-          <h1 className={styles.mainTitle}>ALIEN<span>.</span></h1>
+          <h1 className={styles.mainTitle}>ALIEN World<span>.</span></h1>
           <p className={styles.subtitle}>Franchise Encyclopedia — All Media</p>
           <div className={styles.stats}>
             <Stat val={counts.total} label="Total Entries" />
@@ -134,6 +143,7 @@ export default function Home() {
               <Card
                 key={item.id}
                 item={item}
+                liveRating={liveRatings[item.id] ?? null}
                 onClick={(item) => setSelectedId(item.id)}
                 animDelay={(i % 16) * 22}
                 isFavorite={favorites.has(item.id)}

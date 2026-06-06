@@ -1,18 +1,10 @@
-// netlify/functions/comicvine.js
-//
-// Handles two modes:
-//   ?cvId=12345        → fetches cover URL from Comic Vine API
-//   ?proxyUrl=https:// → fetches and streams a Comic Vine image (fixes CORB)
-
-const CV_KEY  = "11a97461452eee00cc36984e0956bc6565729625";
+const CV_KEY  = process.env.CV_KEY;
 const CV_BASE = "https://comicvine.gamespot.com/api";
 
 exports.handler = async (event) => {
-  const { cvId, proxyUrl } = event.queryStringParameters || {};
+  const { cvId, proxyUrl, detail } = event.queryStringParameters || {};
 
-  // ── Mode 2: Image proxy ──────────────────────────────────────
-  // Browser can't load comicvine.gamespot.com images directly (CORB).
-  // We fetch the image server-side and stream it back.
+  // ── Mode: Image proxy ────────────────────────────────────────
   if (proxyUrl) {
     if (!proxyUrl.startsWith("https://comicvine.gamespot.com/")) {
       return { statusCode: 403, body: "Forbidden" };
@@ -37,7 +29,7 @@ exports.handler = async (event) => {
     }
   }
 
-  // ── Mode 1: Comic Vine API lookup ────────────────────────────
+  // ── Mode: Comic Vine API lookup ───────────────────────────────
   if (!cvId) {
     return {
       statusCode: 400,
@@ -45,7 +37,11 @@ exports.handler = async (event) => {
     };
   }
 
-  const url = `${CV_BASE}/volume/4050-${cvId}/?api_key=${CV_KEY}&format=json&field_list=id,name,image`;
+  const fieldList = detail === "1"
+    ? "id,name,image,deck,description,publisher,count_of_issues"
+    : "id,name,image";
+
+  const url = `${CV_BASE}/volume/4050-${cvId}/?api_key=${CV_KEY}&format=json&field_list=${fieldList}`;
 
   try {
     const response = await fetch(url, {
@@ -60,14 +56,24 @@ exports.handler = async (event) => {
     }
 
     const data = await response.json();
-    const image = data.results?.image;
+    const results = data.results ?? {};
+    const image = results.image;
     const rawCover = image?.medium_url ?? image?.original_url ?? null;
 
-    // Return a proxied URL instead of the raw Comic Vine URL
-    // so the browser never has to load from comicvine.gamespot.com directly
     const cover = rawCover
       ? `/.netlify/functions/comicvine?proxyUrl=${encodeURIComponent(rawCover)}`
       : null;
+
+    // Strip HTML tags from description
+    const stripHtml = (str) => str ? str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().slice(0, 900) : null;
+
+    const body = { cover };
+
+    if (detail === "1") {
+      body.overview   = stripHtml(results.deck) || stripHtml(results.description) || null;
+      body.publisher  = results.publisher?.name ?? null;
+      body.issueCount = results.count_of_issues ?? null;
+    }
 
     return {
       statusCode: 200,
@@ -75,7 +81,7 @@ exports.handler = async (event) => {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify({ cover }),
+      body: JSON.stringify(body),
     };
   } catch (err) {
     console.error("[comicvine function] error:", err);

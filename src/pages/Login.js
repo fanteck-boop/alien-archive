@@ -40,7 +40,7 @@ export default function Login() {
 
         <div className={styles.logoArea}>
           <div className={styles.eyebrow}>&gt; Weyland-Yutani Corp // Access Terminal</div>
-          <h1 className={styles.title}>ALIEN<span>.</span></h1>
+          <h1 className={styles.title}>ALIEN World<span>.</span></h1>
           <p className={styles.subtitle}>Franchise Archive — Restricted Access</p>
         </div>
 
