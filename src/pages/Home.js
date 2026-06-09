@@ -70,8 +70,8 @@ export default function Home() {
     }
     if (activeSort === 'year-asc') items.sort((a, b) => a.year - b.year);
     else if (activeSort === 'year-desc') items.sort((a, b) => b.year - a.year);
-    else if (activeSort === 'rating-desc') items.sort((a, b) => (liveRatings[b.id] ?? b.rating) - (liveRatings[a.id] ?? a.rating));
-    else if (activeSort === 'rating-asc') items.sort((a, b) => (liveRatings[a.id] ?? a.rating) - (liveRatings[b.id] ?? b.rating));
+    else if (activeSort === 'rating-desc') items.sort((a, b) => (liveRatings[b.id] ?? -1) - (liveRatings[a.id] ?? -1));
+    else if (activeSort === 'rating-asc') items.sort((a, b) => (liveRatings[a.id] ?? 999) - (liveRatings[b.id] ?? 999));
     else if (activeSort === 'title-asc') items.sort((a, b) => a.title.localeCompare(b.title));
     return items;
   }, [enriched, activeType, activeSort, search, showFavOnly, favorites, liveRatings]);

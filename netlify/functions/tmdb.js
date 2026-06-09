@@ -11,26 +11,42 @@ exports.handler = async (event) => {
 
   try {
     const yearParam = year ? `&primary_release_year=${year}` : "";
-    const res  = await fetch(
+
+    // Try movie search first
+    let res = await fetch(
       `${TMDB_BASE}/search/movie?api_key=${key}&query=${encodeURIComponent(title)}${yearParam}`
     );
-    const json = await res.json();
-    const movie = json.results?.[0] ?? null;
+    let json = await res.json();
+    let item = json.results?.[0] ?? null;
+    let isTV = false;
 
-    if (!movie) return { statusCode: 200, body: JSON.stringify({ result: null }) };
+    // Fall back to TV search if no movie found
+    if (!item) {
+      const tvRes = await fetch(
+        `${TMDB_BASE}/search/tv?api_key=${key}&query=${encodeURIComponent(title)}`
+      );
+      const tvJson = await tvRes.json();
+      item = tvJson.results?.[0] ?? null;
+      isTV = true;
+    }
+
+    if (!item) return { statusCode: 200, body: JSON.stringify({ result: null }) };
 
     const result = {
-      posterUrl: movie.poster_path ? `${TMDB_IMG}${movie.poster_path}` : null,
-      overview:  movie.overview ?? null,
-      vote_average: movie.vote_average ?? null,
-      release_date: movie.release_date ?? null,
+      posterUrl: item.poster_path ? `${TMDB_IMG}${item.poster_path}` : null,
+      overview:  item.overview ?? null,
+      vote_average: item.vote_average ?? null,
+      release_date: item.release_date ?? item.first_air_date ?? null,
     };
 
     if (detail === "1") {
-      const detailRes  = await fetch(`${TMDB_BASE}/movie/${movie.id}?api_key=${key}`);
+      const endpoint = isTV ? "tv" : "movie";
+      const detailRes  = await fetch(`${TMDB_BASE}/${endpoint}/${item.id}?api_key=${key}`);
       const detailJson = await detailRes.json();
       result.tagline  = detailJson.tagline ?? null;
-      result.runtime  = detailJson.runtime ?? null;
+      result.runtime  = isTV
+        ? (detailJson.episode_run_time?.[0] ? `${detailJson.episode_run_time[0]} min/ep` : null)
+        : (detailJson.runtime ? `${detailJson.runtime} min` : null);
       result.genres   = detailJson.genres?.map(g => g.name) ?? [];
     }
 

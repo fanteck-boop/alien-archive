@@ -13,8 +13,7 @@ function getRatingColor(r) {
 const FALLBACK_EMOJI = { movie: '🎬', game: '🎮', book: '📚', comic: '📖' };
 
 export default function Card({ item, liveRating, onClick, animDelay, isFavorite, onToggleFavorite }) {
-  // Books and comics have no score API — only show live rating for movies/games
-  const displayRating = liveRating ?? (['book', 'comic'].includes(item.type) ? null : item.rating);
+  const displayRating = liveRating ?? null;
   const ratingColor = getRatingColor(displayRating);
 
   return (
