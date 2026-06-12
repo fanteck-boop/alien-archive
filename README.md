@@ -1,7 +1,7 @@
-# ALIEN — Franchise Archive
+# Alien World — Franchise Archive
 
 A React web app for browsing the full Alien franchise across films, games, books, and comics.
-Features Firebase authentication, Firestore-backed favorites, filtering, sorting, and detailed modal views.
+Features Firebase authentication, Firestore-backed favourites, live API data, filtering, sorting, and detailed modal views.
 
 ---
 
@@ -14,11 +14,11 @@ src/
 ├── index.js
 ├── index.css                     # CSS variables & global styles
 ├── firebase.js                   # Firebase app init
-├── api.js                        # TMDB API helper (optional)
-├── data.js                       # All 47 franchise entries
+├── api.js                        # All API calls (TMDB, RAWG, Comic Vine, Open Library)
+├── data.js                       # All 63 franchise entries
 │
 ├── hooks/
-│   └── useFavorites.js           # Firestore favorites read/write
+│   └── useFavorites.js           # Firestore favourites read/write
 │
 ├── pages/
 │   ├── Home.js                   # Main archive page
@@ -27,16 +27,24 @@ src/
 │   └── Login.module.css
 │
 └── components/
-    ├── Card.js                   # Poster card with hover reveal
+    ├── Card.js                   # Poster card with live rating
     ├── Card.module.css
-    ├── Modal.js                  # Detail modal with pros/cons
+    ├── Modal.js                  # Detail modal with live description and score
     ├── Modal.module.css
     ├── Controls.js               # Filter / sort / search bar
     ├── Controls.module.css
     ├── FavoriteButton.js         # Star button component
     └── FavoriteButton.module.css
 
+netlify/
+└── functions/
+    ├── tmdb.js                   # TMDB API proxy (movies)
+    ├── rawg.js                   # RAWG API proxy (games)
+    ├── bookcover.js              # Open Library proxy (books)
+    └── comicvine.js              # Comic Vine proxy + image proxy (comics)
+
 firestore.rules                   # Firestore security rules
+netlify.toml                      # Netlify build and functions config
 ```
 
 ---
@@ -45,6 +53,8 @@ firestore.rules                   # Firestore security rules
 
 - Node.js 16+ and npm
 - A Firebase project (free Spark plan is fine)
+- A Netlify account
+- Netlify CLI: `npm install -g netlify-cli`
 
 ---
 
@@ -52,7 +62,6 @@ firestore.rules                   # Firestore security rules
 
 ```bash
 npm install
-npm install firebase
 ```
 
 ---
@@ -62,109 +71,83 @@ npm install firebase
 ### Create a Firebase project
 
 1. Go to [console.firebase.google.com](https://console.firebase.google.com)
-2. Click **Add project** → follow the steps
+2. Click **Add project** and follow the steps
 3. In **Project Settings → General**, scroll to **Your apps** and click the `</>` web icon
-4. Register your app and copy the config object
-
-### Paste config into `src/firebase.js`
-
-```js
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
-};
-```
-
-> **Security tip:** For production, move these values to a `.env` file:
->
-> ```
-> REACT_APP_FIREBASE_API_KEY=...
-> REACT_APP_FIREBASE_AUTH_DOMAIN=...
-> REACT_APP_FIREBASE_PROJECT_ID=...
-> ```
->
-> Then reference them in `firebase.js` as `process.env.REACT_APP_FIREBASE_API_KEY`.
+4. Register your app and copy the config values
 
 ### Enable Authentication
 
-1. In Firebase console → **Authentication → Sign-in method**
+1. In Firebase console go to **Authentication → Sign-in method**
 2. Enable **Email/Password**
 
 ### Enable Firestore
 
-1. **Firestore Database → Create database**
-2. Start in **production mode** (you'll apply rules next)
+1. Go to **Firestore Database → Create database**
+2. Start in **production mode**
 
 ### Deploy Firestore security rules
 
+Paste the contents of `firestore.rules` into **Firebase console → Firestore → Rules**, or deploy via CLI:
+
 ```bash
-npm install -g firebase-tools
 firebase login
-firebase init firestore   # select your project
+firebase init firestore
 firebase deploy --only firestore:rules
 ```
 
-Or paste the contents of `firestore.rules` directly into the **Firebase console → Firestore → Rules** tab:
+---
+
+## 3 — Environment variables
+
+Create a `.env.local` file in the project root and add the following:
 
 ```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+
+TMDB_KEY=your_tmdb_api_key
+RAWG_KEY=your_rawg_api_key
+CV_KEY=your_comic_vine_api_key
 ```
+
+This file is already in `.gitignore` and will never be uploaded to GitHub.
+
+For production, add the same variables in **Netlify → Site Settings → Environment Variables**.
 
 ---
 
-## 3 — (Optional) TMDB API for live poster images
+## 4 — API keys
 
-The app uses static Wikipedia poster URLs by default. If you want live TMDB posters:
-
-1. Create an account at [themoviedb.org](https://www.themoviedb.org)
-2. Go to **Settings → API** and generate an API key
-3. In `src/api.js`, replace `YOUR_TMDB_API_KEY` with your key
-4. Call `fetchMovie(title)` in your components to retrieve live poster data
-
----
-
-## 4 — Run the app
-
-```bash
-npm start
-```
-
-Open [http://localhost:3000](http://localhost:3000).
+| API | Where to get it |
+|---|---|
+| TMDB | [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api) |
+| RAWG | [rawg.io/apidocs](https://rawg.io/apidocs) |
+| Comic Vine | [comicvine.gamespot.com/api](https://comicvine.gamespot.com/api) |
+| Open Library | No key needed |
 
 ---
 
-## 5 — Build for production
+## 5 — Run locally
 
 ```bash
-npm run build
+netlify dev
 ```
 
-Deploy the `build/` folder to any static host:
+This starts the app at `http://localhost:8888` with Netlify Functions running alongside it. Do not use `npm start` as the functions will not work without Netlify's local server.
+
+---
+
+## 6 — Deploy to Netlify
+
+Connect your GitHub repository to Netlify and it will deploy automatically on every push. Make sure all environment variables are set in the Netlify dashboard before deploying.
 
 ```bash
-# Firebase Hosting (recommended — same project)
-firebase init hosting
-firebase deploy --only hosting
-
-# Or Vercel
-npx vercel --prod
-
-# Or Netlify
-npx netlify deploy --prod --dir=build
+# Or deploy manually
+netlify deploy --prod
 ```
 
 ---
@@ -174,39 +157,39 @@ npx netlify deploy --prod --dir=build
 | Feature | Details |
 |---|---|
 | **Auth** | Email/password login and registration via Firebase Auth |
-| **47 entries** | 7 films, 8 games, 15 books, 17 comics — all with ratings, descriptions, and pros/cons |
-| **Poster images** | Static Wikipedia poster URLs with graceful emoji fallback |
+| **63 entries** | 10 films, 8 games, 15 books, 20 comics |
+| **Live posters** | Fetched at runtime from TMDB, RAWG, Open Library, and Comic Vine |
+| **Live scores** | Movies from TMDB, games from RAWG — fetched progressively in background |
+| **Live descriptions** | Fetched on demand when a card is opened |
 | **Filter by type** | Films, Games, Books, Comics — or show all |
-| **★ Favorites** | Per-user saved list stored in Firestore, persists across sessions |
-| **Sort** | By year (asc/desc), rating (asc/desc), or A–Z |
+| **Favourites** | Per-user saved list stored in Firestore, persists across sessions |
+| **Sort** | By year (asc/desc), rating (asc/desc), or A-Z |
 | **Search** | Instant search across titles, descriptions, and tags |
-| **Detail modal** | Poster, synopsis, detailed notes, public pros/cons, genre tags |
+| **Detail modal** | Poster, live synopsis, score, genres, runtime, and tags |
 | **Responsive** | Works on mobile — poster column hides on small screens |
 
 ---
 
 ## Adding new entries
 
-Open `src/data.js` and add an object to the `data` array following this shape:
+Open `src/data.js` and add an object to the `data` array:
 
 ```js
 {
-  id: 48,                          // must be unique
+  id: 65,                          // must be unique
   type: 'movie',                   // 'movie' | 'game' | 'book' | 'comic'
   title: 'Alien: New Film',
   year: 2026,
-  rating: 8.0,                     // out of 10
   director: 'Some Director',       // or: author / developer
-  imageUrl: 'https://...',         // poster URL — leave '' for emoji fallback
-  desc: 'Short synopsis...',
-  detailedDesc: 'Longer description...',
-  pros: ['Pro 1', 'Pro 2', 'Pro 3'],
-  cons: ['Con 1', 'Con 2', 'Con 3'],
+  imageUrl: 'https://...',         // poster URL — leave null for emoji fallback
+  desc: 'Short synopsis...',       // fallback if API returns nothing
   tags: ['Horror', 'Sci-Fi'],
+  // for games:
+  rawgSearch: 'Search title for RAWG',
+  // for comics:
+  cvId: 12345,                     // Comic Vine volume ID
 }
 ```
-
-Remember to update the stat counters in `Home.js` if you add a new type category.
 
 ---
 
@@ -214,5 +197,7 @@ Remember to update the stat counters in `Home.js` if you add a new type category
 
 - **React 18** (Create React App)
 - **Firebase 9** (Auth + Firestore)
+- **Netlify Functions** (Node.js serverless — API proxy and key security)
 - **CSS Modules** — no CSS-in-JS, no Tailwind
 - **Google Fonts** — Bebas Neue, Share Tech Mono, Rajdhani
+- **APIs** — TMDB, RAWG, Comic Vine, Open Library
