@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import "./App.css";
 
 function App() {
@@ -33,7 +32,7 @@ function App() {
     );
   }
 
-  return <div className="App">{user ? <Home /> : <Login />}</div>;
+  return <div className="App"><Home user={user} /></div>;
 }
 
 export default App;

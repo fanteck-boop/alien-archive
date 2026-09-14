@@ -7,9 +7,11 @@ import { useFavorites } from '../hooks/useFavorites';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import Controls from '../components/Controls';
+import Login from './Login';
 import styles from './Home.module.css';
 
-export default function Home() {
+export default function Home({ user }) {
+  const [showLogin, setShowLogin] = useState(false);
   const [activeType, setActiveType] = useState('all');
   const [activeSort, setActiveSort] = useState('year-asc');
   const [search, setSearch] = useState('');
@@ -19,6 +21,10 @@ export default function Home() {
   const [liveRatings, setLiveRatings] = useState({});
 
   const { favorites, toggle: toggleFavorite } = useFavorites();
+
+  useEffect(() => {
+    if (user) setShowLogin(false);
+  }, [user]);
 
   // Fetch covers
   useEffect(() => {
@@ -110,9 +116,15 @@ export default function Home() {
             <Stat val={counts.comics} label="Comics" />
             <Stat val={favorites.size} label="Saved" accent="var(--amber)" />
           </div>
-          <button className={styles.signOut} onClick={() => signOut(auth)}>
-            Sign Out
-          </button>
+          {user ? (
+            <button className={styles.signOut} onClick={() => signOut(auth)}>
+              Sign Out
+            </button>
+          ) : (
+            <button className={styles.signOut} onClick={() => setShowLogin(true)}>
+              Sign In
+            </button>
+          )}
         </div>
         <div className={styles.headerLine} />
       </header>
@@ -165,6 +177,14 @@ export default function Home() {
         isFavorite={selectedItem ? favorites.has(selectedItem.id) : false}
         onToggleFavorite={toggleFavorite}
       />
+
+      {showLogin && (
+        <div className={styles.loginOverlay} onClick={() => setShowLogin(false)}>
+          <div onClick={(e) => e.stopPropagation()}>
+            <Login />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

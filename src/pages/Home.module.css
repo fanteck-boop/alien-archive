@@ -4,6 +4,17 @@
   flex-direction: column;
 }
 
+.loginOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
 /* Header */
 .header {
   position: relative;
