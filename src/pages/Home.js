@@ -104,6 +104,7 @@ export default function Home({ user }) {
       <header className={styles.header}>
         <div className={styles.headerBg} />
         <div className={styles.headerGrid} />
+        <div className={styles.headerScanline} />
         <div className={styles.headerContent}>
           <div className={styles.eyebrow}>&gt; Weyland-Yutani Corp — Classified Archive // Est. 1979</div>
           <h1 className={styles.mainTitle}>ALIEN World<span>.</span></h1>

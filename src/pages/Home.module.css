@@ -32,6 +32,12 @@
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,255,46,0.07) 0%, transparent 70%),
     radial-gradient(ellipse 40% 50% at 20% 50%, rgba(255,59,31,0.05) 0%, transparent 60%),
     linear-gradient(180deg, #080a0d 0%, #050507 100%);
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
 }
 
 .headerGrid {
@@ -42,6 +48,21 @@
     linear-gradient(90deg, rgba(184,255,46,0.04) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 70%, transparent 100%);
+}
+
+.headerScanline {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(rgba(255,255,255,0.02) 50%, transparent 50%);
+  background-size: 100% 4px;
+  animation: scanMove 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanMove {
+  from { background-position: 0 0; }
+  to { background-position: 0 100px; }
 }
 
 .headerContent {
@@ -126,6 +147,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 14px;
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 }
 
 /* Empty state */
