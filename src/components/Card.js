@@ -21,6 +21,12 @@ export default function Card({ item, liveRating, onClick, animDelay, isFavorite,
       className={`${styles.card} ${styles[item.type]}`}
       style={{ animationDelay: `${animDelay}ms` }}
       onClick={() => onClick(item)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(item); }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label={`${item.title} — view details`}
     >
       <div className={styles.posterWrap}>
         {item.imageUrl ? (

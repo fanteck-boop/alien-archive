@@ -10,12 +10,17 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    if (isRegister && !consent) {
+      setError("You need to agree to the Terms of Service and Privacy Policy to create an account.");
+      return;
+    }
     setLoading(true);
     try {
       if (isRegister) {
@@ -68,6 +73,21 @@ export default function Login() {
             />
           </div>
 
+          {isRegister && (
+            <label className={styles.fieldGroup} style={{ flexDirection: "row", alignItems: "flex-start", gap: "8px" }}>
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                style={{ marginTop: "3px" }}
+              />
+              <span style={{ fontSize: "12px", fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>
+                I agree to the <a href="/terms.html" target="_blank" rel="noopener">Terms of Service</a> and{" "}
+                <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+              </span>
+            </label>
+          )}
+
           {error && <div className={styles.error}>{error}</div>}
 
           <button className={styles.btn} type="submit" disabled={loading}>
@@ -88,7 +108,8 @@ export default function Login() {
       </div>
 
       <div className={styles.footer}>
-        ALIEN™ &amp; © 20th Century Studios. Archive for informational purposes only.
+        Unofficial fan project, not affiliated with 20th Century Studios. ALIEN™ &amp; © 20th Century Studios.{" "}
+        <a href="/privacy.html" target="_blank" rel="noopener">Privacy</a> &middot; <a href="/terms.html" target="_blank" rel="noopener">Terms</a>
       </div>
     </div>
   );

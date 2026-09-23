@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
-import { auth } from '../firebase';
-import { signOut } from 'firebase/auth';
+import { auth, db } from '../firebase';
+import { signOut, deleteUser } from 'firebase/auth';
+import { doc, deleteDoc } from 'firebase/firestore';
 import { data } from '../data';
 import { fetchAllMoviePosters, fetchAllComicCovers, fetchAllBookCovers, fetchAllLiveRatings } from '../api';
 import { useFavorites } from '../hooks/useFavorites';
@@ -21,6 +22,21 @@ export default function Home({ user }) {
   const [liveRatings, setLiveRatings] = useState({});
 
   const { favorites, toggle: toggleFavorite } = useFavorites();
+
+  const handleDeleteAccount = async () => {
+    if (!user) return;
+    if (!window.confirm('Permanently delete your account and all saved favorites? This cannot be undone.')) return;
+    try {
+      await deleteDoc(doc(db, 'users', user.uid));
+      await deleteUser(user);
+    } catch (err) {
+      if (err.code === 'auth/requires-recent-login') {
+        window.alert('For security, sign out and sign back in, then try deleting your account again.');
+      } else {
+        window.alert(err.message || 'Something went wrong.');
+      }
+    }
+  };
 
   useEffect(() => {
     if (user) setShowLogin(false);
@@ -118,13 +134,20 @@ export default function Home({ user }) {
             <Stat val={favorites.size} label="Saved" accent="var(--amber)" />
           </div>
           {user ? (
-            <button className={styles.signOut} onClick={() => signOut(auth)}>
-              Sign Out
-            </button>
+            <div className={styles.accountActions}>
+              <button className={styles.signOut} onClick={() => signOut(auth)}>
+                Sign Out
+              </button>
+              <button className={styles.signOut} onClick={handleDeleteAccount}>
+                Delete my account and data
+              </button>
+            </div>
           ) : (
-            <button className={styles.signOut} onClick={() => setShowLogin(true)}>
-              Sign In
-            </button>
+            <div className={styles.accountActions}>
+              <button className={styles.signOut} onClick={() => setShowLogin(true)}>
+                Sign In
+              </button>
+            </div>
           )}
         </div>
         <div className={styles.headerLine} />
@@ -168,8 +191,11 @@ export default function Home({ user }) {
       </main>
 
       <footer className={styles.footer}>
-        <span>Alien™ &amp; © 20th Century Studios. All rights reserved.</span>
-        <span>Archive — informational purposes only.</span>
+        <span>
+          Unofficial fan project, not affiliated with 20th Century Studios. Alien™ &amp; © 20th Century Studios.{" "}
+          <a href="/privacy.html" target="_blank" rel="noopener">Privacy</a> &middot; <a href="/terms.html" target="_blank" rel="noopener">Terms</a>
+        </span>
+        <span>This product uses the TMDB API but is not endorsed or certified by TMDB. Game data by RAWG, comic data by Comic Vine, book covers by Open Library.</span>
       </footer>
 
       <Modal

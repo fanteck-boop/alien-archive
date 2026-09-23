@@ -1,3 +1,8 @@
+.card:focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 2px;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);

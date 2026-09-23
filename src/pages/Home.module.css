@@ -116,10 +116,15 @@
   background: linear-gradient(90deg, transparent, var(--acid) 20%, rgba(184,255,46,0.3) 80%, transparent);
 }
 
-.signOut {
+.accountActions {
   position: absolute;
   top: 40px;
   right: 64px;
+  display: flex;
+  gap: 8px;
+}
+
+.signOut {
   font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
   letter-spacing: 2px;
@@ -190,12 +195,16 @@
   color: var(--text-dim);
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.4;
+  opacity: 0.85;
+}
+
+.footer a {
+  color: var(--acid);
 }
 
 @media (max-width: 768px) {
   .headerContent { padding: 28px 20px 22px; }
-  .signOut { top: 20px; right: 20px; }
+  .accountActions { top: 20px; right: 20px; flex-direction: column; }
   .main { padding: 18px 20px 60px; }
   .footer { padding: 14px 20px; flex-direction: column; gap: 4px; text-align: center; }
 }
