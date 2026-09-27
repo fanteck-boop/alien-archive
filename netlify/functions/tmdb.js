@@ -1,3 +1,5 @@
+const { corsHeaders } = require("./_cors");
+
 const TMDB_BASE = "https://api.themoviedb.org/3";
 const TMDB_IMG  = "https://image.tmdb.org/t/p/w500";
 
@@ -6,7 +8,7 @@ exports.handler = async (event) => {
   const key = process.env.TMDB_KEY;
 
   if (!title) {
-    return { statusCode: 400, body: JSON.stringify({ error: "Missing title" }) };
+    return { statusCode: 400, headers: corsHeaders(event), body: JSON.stringify({ error: "Missing title" }) };
   }
 
   try {
@@ -52,10 +54,15 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      headers: { "Content-Type": "application/json", ...corsHeaders(event) },
       body: JSON.stringify({ result }),
     };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    console.error("[tmdb function] error:", err);
+    return {
+      statusCode: 500,
+      headers: corsHeaders(event),
+      body: JSON.stringify({ error: "Internal error" }),
+    };
   }
 };

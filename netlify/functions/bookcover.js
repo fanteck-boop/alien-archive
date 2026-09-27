@@ -1,8 +1,10 @@
+const { corsHeaders } = require("./_cors");
+
 exports.handler = async (event) => {
   const { title, detail } = event.queryStringParameters || {};
 
   if (!title) {
-    return { statusCode: 400, body: JSON.stringify({ error: "Missing title" }) };
+    return { statusCode: 400, headers: corsHeaders(event), body: JSON.stringify({ error: "Missing title" }) };
   }
 
   try {
@@ -10,7 +12,7 @@ exports.handler = async (event) => {
     const json = await res.json();
     const book = json.docs?.find((d) => d.cover_i) ?? json.docs?.[0] ?? null;
 
-    if (!book) return { statusCode: 200, body: JSON.stringify({ cover: null }) };
+    if (!book) return { statusCode: 200, headers: corsHeaders(event), body: JSON.stringify({ cover: null }) };
 
     const cover = book.cover_i
       ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
@@ -19,7 +21,7 @@ exports.handler = async (event) => {
     if (!detail) {
       return {
         statusCode: 200,
-        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        headers: { "Content-Type": "application/json", ...corsHeaders(event) },
         body: JSON.stringify({ cover }),
       };
     }
@@ -40,10 +42,15 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      headers: { "Content-Type": "application/json", ...corsHeaders(event) },
       body: JSON.stringify({ cover, overview, subjects }),
     };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    console.error("[bookcover function] error:", err);
+    return {
+      statusCode: 500,
+      headers: corsHeaders(event),
+      body: JSON.stringify({ error: "Internal error" }),
+    };
   }
 };

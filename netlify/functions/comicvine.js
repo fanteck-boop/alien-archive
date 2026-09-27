@@ -1,3 +1,5 @@
+const { corsHeaders } = require("./_cors");
+
 const CV_KEY  = process.env.CV_KEY;
 const CV_BASE = "https://comicvine.gamespot.com/api";
 
@@ -7,7 +9,7 @@ exports.handler = async (event) => {
   // ── Mode: Image proxy ────────────────────────────────────────
   if (proxyUrl) {
     if (!proxyUrl.startsWith("https://comicvine.gamespot.com/")) {
-      return { statusCode: 403, body: "Forbidden" };
+      return { statusCode: 403, headers: corsHeaders(event), body: "Forbidden" };
     }
     try {
       const res = await fetch(proxyUrl);
@@ -18,14 +20,15 @@ exports.handler = async (event) => {
         statusCode: 200,
         headers: {
           "Content-Type": contentType,
-          "Access-Control-Allow-Origin": "*",
+          ...corsHeaders(event),
           "Cache-Control": "public, max-age=86400",
         },
         body: base64,
         isBase64Encoded: true,
       };
     } catch (err) {
-      return { statusCode: 500, body: "Image proxy error" };
+      console.error("[comicvine function] image proxy error:", err);
+      return { statusCode: 500, headers: corsHeaders(event), body: "Image proxy error" };
     }
   }
 
@@ -33,7 +36,15 @@ exports.handler = async (event) => {
   if (!cvId) {
     return {
       statusCode: 400,
+      headers: corsHeaders(event),
       body: JSON.stringify({ error: "Missing cvId or proxyUrl parameter" }),
+    };
+  }
+  if (!/^\d+$/.test(cvId)) {
+    return {
+      statusCode: 400,
+      headers: corsHeaders(event),
+      body: JSON.stringify({ error: "cvId must be numeric" }),
     };
   }
 
@@ -51,6 +62,7 @@ exports.handler = async (event) => {
     if (!response.ok) {
       return {
         statusCode: response.status,
+        headers: corsHeaders(event),
         body: JSON.stringify({ error: "Comic Vine request failed" }),
       };
     }
@@ -79,7 +91,7 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        ...corsHeaders(event),
       },
       body: JSON.stringify(body),
     };
@@ -87,6 +99,7 @@ exports.handler = async (event) => {
     console.error("[comicvine function] error:", err);
     return {
       statusCode: 500,
+      headers: corsHeaders(event),
       body: JSON.stringify({ error: "Internal error" }),
     };
   }

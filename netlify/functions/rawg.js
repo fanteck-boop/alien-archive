@@ -1,3 +1,5 @@
+const { corsHeaders } = require("./_cors");
+
 const RAWG_BASE = "https://api.rawg.io/api";
 
 exports.handler = async (event) => {
@@ -5,7 +7,7 @@ exports.handler = async (event) => {
   const key = process.env.RAWG_KEY;
 
   if (!title) {
-    return { statusCode: 400, body: JSON.stringify({ error: "Missing title" }) };
+    return { statusCode: 400, headers: corsHeaders(event), body: JSON.stringify({ error: "Missing title" }) };
   }
 
   try {
@@ -13,14 +15,14 @@ exports.handler = async (event) => {
     const json = await res.json();
     const game = json.results?.[0] ?? null;
 
-    if (!game) return { statusCode: 200, body: JSON.stringify({ result: null }) };
+    if (!game) return { statusCode: 200, headers: corsHeaders(event), body: JSON.stringify({ result: null }) };
 
     const detailRes  = await fetch(`${RAWG_BASE}/games/${game.id}?key=${key}`);
     const detail     = await detailRes.json();
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      headers: { "Content-Type": "application/json", ...corsHeaders(event) },
       body: JSON.stringify({
         result: {
           description: detail.description_raw ?? null,
@@ -32,6 +34,11 @@ exports.handler = async (event) => {
       }),
     };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    console.error("[rawg function] error:", err);
+    return {
+      statusCode: 500,
+      headers: corsHeaders(event),
+      body: JSON.stringify({ error: "Internal error" }),
+    };
   }
 };
